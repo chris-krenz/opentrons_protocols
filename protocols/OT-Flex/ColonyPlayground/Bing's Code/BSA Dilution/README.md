@@ -18,7 +18,8 @@ The protocol performs automated serial dilutions of BSA in 2 duplicates using th
 Before automation, place all labware accordance to the screen visualization set up
 
 Example Set Up image:<img width="799" height="593" alt="image" src="https://github.com/user-attachments/assets/1258b839-7be1-4210-93d6-f9da6ef3cd02" />
-Blue = water; Green = BSA stock
+Liquid: Blue = water; Green = BSA stock
+Tipracks: Blue = 1000 uL; Orange = 200 uL
 
 ### Procedure
 1. Place tubes in spot A1-A3 and B1-B3. Row A holding 1st set of BSA dilution, and row B holding the duplicates. Tube spot A6 and B6 will hold blanks.
