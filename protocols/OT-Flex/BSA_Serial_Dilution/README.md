@@ -33,10 +33,10 @@ Example Set Up image:<img width="799" height="593" alt="image" src="https://gith
 
 ## Protocol Validation
 - Water test: Testing with water and 10% glycerol with water coloring to validate even mixing.
-- Measure BSA concentration through BCA assay. 
+- BCA Assay: Measure protein concentration through BCA assay protocol.
 
 ## Protocol Updates
-- Ver. 3: Changed dilution patterns for consistency.
+- Ver. 3: Changed dilution patterns for consistency, and simplify code for easier editing.
 - Ver. 2: Changed tip size for transferring 200 uL volumes to increase accuracy. 
-- Ver. 1: Code is updated with mixing at different heights for more even mixing
+- Ver. 1: Code is updated with mixing at different heights for more even mixing. 
 
