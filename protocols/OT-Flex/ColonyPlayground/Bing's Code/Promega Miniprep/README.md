@@ -42,8 +42,9 @@ Before automation, place all labware accordance to the screen visualization set 
 
 Example Set Up image: <img width="763" height="576" alt="image" src="https://github.com/user-attachments/assets/008d1d9b-a4c6-4573-bd3f-16d4f9b713d3" />
 
-Green = resuspension sultion; Aqua = Lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Grey = 80% ethanol; Purple = Elution Buffer
-- The solutions are placed in order of their usage.
+- Liquid: Green = resuspension sultion; Aqua = Lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Grey = 80% ethanol; Purple = Elution Buffer
+  - The solutions are placed in order of their usage.
+- Tiprack: Blue = 1000 uL; Orange = 200 uL
 
 ### Procedure
 1. In deck space A2, place 3 of the collection plate stacked ontop of eachother.
