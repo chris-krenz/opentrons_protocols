@@ -35,14 +35,14 @@ Here describes the keyword in each step of plasmid DNA isolation:
 
 ## Protocol Summary
 >[!IMPORTANT]
->Pelleting the bacterial and discarding the supernatant in the 96 deep wellplate must be done manually before starting automated protocol. 
+>Pelleting the bacteria and discarding the supernatant in the 96 deep wellplate must be done manually before starting automated protocol. 
 
 ### Set up
 Before automation, place all labware accordance to the screen visualization set up
 
 Example Set Up image: <img width="763" height="576" alt="image" src="https://github.com/user-attachments/assets/008d1d9b-a4c6-4573-bd3f-16d4f9b713d3" />
 
-- Liquid: Green = resuspension sultion; Aqua = Lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Grey = 80% ethanol; Purple = Elution Buffer
+- Liquid: Black = cell pellet; Green = resuspension sultion; Aqua = Lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Grey = 80% ethanol; Purple = Elution Buffer
   - The solutions are placed in order of their usage.
 - Tiprack: Blue = 1000 uL; Orange = 200 uL
 
