@@ -32,11 +32,14 @@ For example, an absorbance of 1.426 means has a protein concentation of 5.696 mg
 - Others: Two opentrons 24 tuberack holder
 
 ## Protocol Summary
+### Setup
 Before automation, place all labware accordance to the screen visualization set up
 
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
 
-Red = standards; yellow = unknowns; blue = reagent B; green = reagent A; purple = 50 uL tips;yellow = 200 uL tips. 
+- Liquid: Red = standards; yellow = unknowns; blue = reagent B; green = reagent A
+- Tipracks: Purple = 50 uL; Yellow = 200 uL
+### Procedure
 1. Place unknowns and standards in preferred order in columns, and dispense the necessary amount of reagent A and B into the reservoir and tube respectively.
 2. Start automation protocol.
 3. Dispenses 10 µL of BSA standards into column 1 (and column 2-3 if there's replicates)
