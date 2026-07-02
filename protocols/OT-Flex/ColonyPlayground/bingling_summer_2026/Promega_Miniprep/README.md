@@ -30,8 +30,33 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - Hardware: Heater shaker with the universal flat plate, magnetic block V1, flex gripper
 - Pipette: Flex 8-Channel 1000 uL
 - Tips: One 200 uL tip rack and one 1000 uL tip rack
-- Plate: Collection plates from the promega miniprep kit
+- Plate: 96 well collection plates from the promega miniprep kit
 - Reservoir: Opentrons Tough 22 mL 12 Well Reservoir, greiner 96 deep well plate
+
+<details>
+<summary>Click here for materials reference image</summary>
+
+  Heater-Shaker universal flat plate
+
+  <img width="386" height="217" alt="image" src="https://github.com/user-attachments/assets/6d3ab0c3-4660-4dc9-8cd2-24c47ffe4edb" />
+
+  Magnetic block V1
+
+  <img width="320" height="180" alt="image" src="https://github.com/user-attachments/assets/5764cd49-03ae-450f-b735-6897b0fbd07a" />
+
+  Promega kit collection 96 well plates:
+  
+  <img width="300" height="100" alt="image" src="https://github.com/user-attachments/assets/f9d349de-c989-41cc-afa0-0136f3bb1381" />
+  
+  Opentrons Tough 22 mL 12 Well Reservoir:
+  
+  <img width="350" height="260" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
+
+  Greiner 96 deep well plate 2.2 mL:
+
+  <img width="310" height="255" alt="image" src="https://github.com/user-attachments/assets/523d010e-a8e7-4f87-8ff6-615b63fac689" />
+
+</details>
 
 ## Protocol Summary
 >[!IMPORTANT]
