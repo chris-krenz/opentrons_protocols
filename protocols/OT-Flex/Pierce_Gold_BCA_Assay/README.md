@@ -8,18 +8,29 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
 <details>
 <summary>Click here for Pierce Gold BCA Assay Kit Information</summary>
   
-  The Pierce Gold BCA Assay kit itself is for quantification of proteins in an unknown sample. The kit provides 8 standards with known protein concentrations. The unknowns and standards will be mixed with a working reagent (made by mixing reagent A and reagent B), left to incubate for 5 minutes at room temperature, and read in a plate reader at wavelength 480 nm. 
+  The Pierce Gold BCA Assay kit itself is for quantification of proteins in an unknown sample. The kit provides 8 standards with known protein concentrations. 
+  
+  The unknowns and standards will then be mixed with a working reagent created by mixing reagent A and reagent B provided by the kit. 
+  
+  The mixture will be left to incubate for 5 minutes at room temperature, and afterwards read in a plate reader at wavelength 480 nm. 
   
   <img width="1160" height="218" alt="image" src="https://github.com/user-attachments/assets/3210d5fc-5c4c-431f-bfea-8e2b65adba7d" />
   
-  Above is the samples absorbance reading. The standard readings in row 1 will be turned into a linear regression graph. 
+  Above is a sample absorbance reading for 8 standards in column 1, and 4 unknowns in column 2. 
+  
+  The standard readings in column 1 will be turned into a linear regression graph shown below:
   
   <img width="370" height="270" alt="image" src="https://github.com/user-attachments/assets/ec320357-8061-4eb3-afae-40104f85c5c0" />
   
-  The quadratic equation y = 0.246x + 0.0249 (y = absorbance) would be used to calculate the unknown protein concentrations in row 2 (x = concentration (mg/mL))
-  
-  For example, an absorbance of 1.426 means has a protein concentation of 5.696 mg/mL (x = ( y - 0.0249 ) / 0.246)
-</details>
+  The quadratic equation from the standard curve, y = 0.246x + 0.0249 (y = absorbance), will be used to calculate the unknown protein concentrations:
+
+  Ex. If the equation is y = 0.246x + 0.0249, isolate x (x = concentration (mg/mL))
+
+  x = ( y - 0.0249 ) / 0.246
+
+  So an absorbance reading of 1.426 means the unknown sample has a protein concentation of 5.696 mg/mL
+  </details>
+
 
 ## Protocol Materials
 > [!NOTE]
@@ -42,25 +53,25 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   
   NUNC 96 wellplate optical bottom black:
   
-  <img width="450" height="400" alt="image" src="https://github.com/user-attachments/assets/0b0bcbca-94de-4adb-859c-b1a4f9ebb61b" />
+  <img width="350" height="300" alt="image" src="https://github.com/user-attachments/assets/0b0bcbca-94de-4adb-859c-b1a4f9ebb61b" />
   
   Opentrons Tough 22 mL 12 Well Reservoir:
   
-  <img width="424" height="300" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
+  <img width="350" height="260" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
 
   Opentrons 24 tuberack holder:
 
-  <img width="419" height="320" alt="image" src="https://github.com/user-attachments/assets/c35fd4fa-19fd-442d-aad7-b45a3afa3f42" />
+  <img width="350" height="280" alt="image" src="https://github.com/user-attachments/assets/c35fd4fa-19fd-442d-aad7-b45a3afa3f42" />
 
   Nest 1.5 mL snapcap:
 
-  <img width="450" height="450" alt="image" src="https://github.com/user-attachments/assets/c30153fa-5061-484f-a0e8-510f70f14e0f" />
+  <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/c30153fa-5061-484f-a0e8-510f70f14e0f" />
 
 </details>
 
 ## Protocol Summary
 ### Setup
-Before automation, place all labware in deck accordance to the screen visualization set up
+Before automation, place all labware in the correct deck spot accordance to the screen visualization set up in the Opentrons software
 
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
 
