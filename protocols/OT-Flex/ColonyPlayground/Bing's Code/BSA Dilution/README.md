@@ -29,7 +29,7 @@ Blue = water; Green = BSA stock
 
 ## Protocol Validation
 - Water test: Testing with water and 10% glycerol with water coloring to validate even mixing.
-- BSA dilution test: Measure BSA concentration through BCA assay. 
+- Measure BSA concentration through BCA assay. 
 
 ## Protocol Updates
 - Ver. 2: Changed tip size for transferring 200 uL volumes to increase accuracy. 
