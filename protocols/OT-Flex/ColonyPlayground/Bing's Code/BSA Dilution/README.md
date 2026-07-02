@@ -25,7 +25,7 @@ Example Set Up image:<img width="799" height="593" alt="image" src="https://gith
 - Tipracks: Blue = 1000 uL; Orange = 200 uL
 
 ### Procedure
-1. Place tubes in spot A1-A3 and B1-B3. Row A holding 1st set of BSA dilution, and row B holding the duplicates. Tube spot A6 and B6 will hold blanks.
+1. Place tubes in spot A1-A3 and B1-B3. Row A holding 1st set of BSA dilution, and row B holding the 2nd set (duplicate). Tube spot A6 and B6 will hold blanks.
 2. Using the same tip, transfer all the water into the tubes.
 3. Transfer BSA to the first column of tubes.
 4. Perform serial dilution for row A.
@@ -36,5 +36,6 @@ Example Set Up image:<img width="799" height="593" alt="image" src="https://gith
 - Measure BSA concentration through BCA assay. 
 
 ## Protocol Updates
+- Ver. 3: Changed dilution patterns for consistency.
 - Ver. 2: Changed tip size for transferring 200 uL volumes to increase accuracy. 
-- Ver. 1: Code is updated with mixing at different heights
+- Ver. 1: Code is updated with mixing at different heights for more even mixing
