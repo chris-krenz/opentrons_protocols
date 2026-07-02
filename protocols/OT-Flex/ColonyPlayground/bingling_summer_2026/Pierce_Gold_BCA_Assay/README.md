@@ -98,7 +98,7 @@ This protocol requires the following custom labware:
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values. 
 
 ## Protocol Updates
--Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent. 
+- Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent. 
 - Ver. 9: Code is made to blow out, touch tip, and blow out again to account for viscousity of unknowns and standards to prevent droplets. 
 - Ver. 8: Code is optimized to dispense and aspirate slower for more accurate 
 - Ver. 7: Code is optimized to use small volume pipette arms and tips to minimize % error of the machine.
