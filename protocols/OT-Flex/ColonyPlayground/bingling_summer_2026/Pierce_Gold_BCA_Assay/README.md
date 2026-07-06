@@ -97,7 +97,8 @@ This protocol requires the following custom labware:
 [custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
 
 ## Protocol Validations
-- $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values. 
+- $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
+- Compare to a manual run, the slopes of both should be close when using the same standards. 
 
 ## Protocol Updates
 - Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent.
