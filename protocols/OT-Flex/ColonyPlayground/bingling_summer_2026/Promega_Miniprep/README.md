@@ -72,21 +72,21 @@ Example Set Up image: <img width="763" height="576" alt="image" src="https://git
 - Tiprack: Blue = 1000 uL; Orange = 200 uL
 
 ### Procedure
-1. In deck space A2, place 3 of the collection plate stacked ontop of eachother.
-2. Resuspends, lyses and neutralizes the cell.
-3. Adds Magnesil BLUE and shakes on the shaker.
-4. Transfers lysate to a collection plate on the magnetic block to clear lysate. Pellets form in this step.
-5.  A new binding collection place is placed onto a new deck using the flex gripper. Magnesil Red is then added in.
-6.  Transfers cleared lysate to the binding plate, then put on shaker to mix. 
-7.  Flex gripper transfers binding plate to magnetic block to form pellets. Supernatant is discarded.
-8.  Binding plate it put pack on the shaker, adding more magnesil RED and cleared lysate. Mixed.
-9.  Placed binding plate back on magnetic block to form pellets. Supernatant is discarded and clearing collection plate is moved offdeck. 
-10.  For washing, ehtanol is first added, then mixed. Afterwards, it's placed on the magnetic block to form pellets, and supernatant is discarded. Repeat two more times.
-11.  Allows plate to dry for 10 minutes.
-12.  Adds elution buffer to the binding plate, mixed and placed back on magnetic block to form pellets.
-13.  A new collection plate is moved, and the eluate is transferred to that new plate. 
-14.  Removes residual particles by placing the new collection plate with the eluate onto the magnetic block to allow pellets to form.
-15.  Transfers the second eluate to a final collection plate to complete protocol. 
+1. In deck space A2, place 3 of the plate stacked ontop of eachother.
+2. Resuspends, lyses and neutralizes the cell in the deep wellplate. 
+3. Adds Magnesil BLUE into the deep wellplate and shakes on the shaker.
+4. Transfers lysate from deep wellplate to a clearing plate on the magnetic block to clear lysate. Unwanted pellets form in this step.
+5.  A new binding place is placed onto a new deck space using the flex gripper.
+6.  25 uL of Magnesil Red is added into the binding plate
+7.  Transfer 120 uL of cleared lysate from the clearing plate to the binding plate. Binding plate is shaked to mix. 
+8.  Binding plate is moved to magnetic block to form wanted pellets. Supernatant is discarded.
+9.  Repeat step 6-8 for the binding plate, then discard clearing plate. 
+12. To wash, 100 uL of 80% ethanol is added, then shaken to mix. Afterwards, it's placed on the magnetic block, and supernatant is discarded. Repeat two more times for a total of 3 washes. 
+13.  Allow plate to dry for 10 minutes.
+14.  Adds elution buffer to the binding plate, shake to mix and place back on magnetic block to form unwanted pellets.
+15.  A new elution plate is placed, and the eluate from the binding plate is transferred to the elution plate.  
+16.  Remove residual particles by placing the elution plate on the magnetic block to allow unwanted pellets to form.
+17.  Transfers the eluate to a final collection plate to complete protocol. 
 
 ## Labware Required (WIP)
 This protocol requires the following custom labware:
