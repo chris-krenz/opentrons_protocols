@@ -73,19 +73,19 @@ Example Set Up image: <img width="763" height="576" alt="image" src="https://git
 
 ### Procedure
 1. In deck space A2, place 3 of the collection plate stacked ontop of eachother.
-2. Resuspends, lyses cell and neutralizes the cell.
+2. Resuspends, lyses and neutralizes the cell.
 3. Adds Magnesil BLUE and shakes on the shaker.
 4. Transfers lysate to a collection plate on the magnetic block to clear lysate. Pellets form in this step.
-5.  Adds Magnesil RED into a new binding collection plate, moved from the stack to a new deck using the flex gripper.
-6.  Transfers cleared lysate to binding plate, to mix on the shaker.
+5.  A new binding collection place is placed onto a new deck using the flex gripper. Magnesil Red is then added in.
+6.  Transfers cleared lysate to the binding plate, then put on shaker to mix. 
 7.  Flex gripper transfers binding plate to magnetic block to form pellets. Supernatant is discarded.
-8.  Binding plate it put pack on the shaker, adding more magnesil RED and clear lysate. Mixed.
-9.  Placed binding plate back on magnetic block to form pellets. Supernatant discarded.
-10.  To wash ethanol is added, shakened, placed on magnetic block to form pellet, and excess liquid is discarded. Repeated twice more.
+8.  Binding plate it put pack on the shaker, adding more magnesil RED and cleared lysate. Mixed.
+9.  Placed binding plate back on magnetic block to form pellets. Supernatant is discarded and clearing collection plate is moved offdeck. 
+10.  For washing, ehtanol is first added, then mixed. Afterwards, it's placed on the magnetic block to form pellets, and supernatant is discarded. Repeat two more times.
 11.  Allows plate to dry for 10 minutes.
 12.  Adds elution buffer to the binding plate, mixed and placed back on magnetic block to form pellets.
-13.  Eluate is transferred to a new collection plate, moved from stack to a new deck using the gripper.
-14.  Removes residual particles by placing new collection plate onto the magnetic block to allow pellets to form.
+13.  A new collection plate is moved, and the eluate is transferred to that new plate. 
+14.  Removes residual particles by placing the new collection plate with the eluate onto the magnetic block to allow pellets to form.
 15.  Transfers the second eluate to a final collection plate to complete protocol. 
 
 ## Labware Required (WIP)
