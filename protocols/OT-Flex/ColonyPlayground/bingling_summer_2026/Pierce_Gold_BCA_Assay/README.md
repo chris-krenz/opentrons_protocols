@@ -29,6 +29,8 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   x = ( y - 0.0249 ) / 0.246
 
   So an absorbance reading of 1.426 means the unknown sample has a protein concentation of 5.696 mg/mL
+
+  [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/e/2PACX-1vQHjbm-x1kIOYTJoq81OzskibxwKUSKyZn81WVdUn8h-sNTi3uS-CjySMG9yDvNimtIrA33ofB6ztlT/pubhtml)
   </details>
 
 
