@@ -71,11 +71,17 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
 
 </details>
 
-## Protocol Summary
+## Automated Protocol Summary
 ### Setup
 Before automation, place all labware in the correct deck spot accordance to the screen visualization set up in the Opentrons software
 
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
+
+Nunc wellplate on the heater-shaker with the universal flat plate at C1
+
+Opentrons Reservoir at D1
+
+Tuberacks at D2 and D3
 
 - Liquid: Red = standards; yellow = unknowns; blue = reagent B; green = reagent A
 - Tipracks: Purple = 50 uL; Yellow = 200 uL
