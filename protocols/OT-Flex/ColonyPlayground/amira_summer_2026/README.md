@@ -24,15 +24,7 @@ Example Set Up image for 4 unknowns: <img width="774" height="589" alt="image" s
 - Liquid: Red = standards; orange = unknowns; blue = reagent B; green = reagent A
 - Tipracks: Blue = 1000 uL; Yellow = 200 uL; Purple = 50 uL
 ### Procedure
-1. Place unknowns and standards tubes in preferred order in columns, and dispense the necessary amount of reagent A and B into the reservoir and tube respectively.
-2. Start automation protocol.
-3. Dispenses 10 µL of BSA standards into column 1
-4. Dispenses 10 µL of BSA unknowns into the column next to the standards
-5. Combine reagent A and reagent B in a 50:1 ratio, then mix to create the working reagent.
-6. Dispense 200 µL of working reagent with the 8-channel pipette into each row where there is standards and unknowns. Rows with less than 8 rows will have WR dispensed with the 1-channel pipette
-7. Heater-shaker will shake the well-plate at 250rpm for 30 seconds to mix well.
-8. Protocol will set a timer for 5 minutes.
-9. When timer is up, protocol will display completion so user can bring the wellplate to the spectrometry for absorbance reading. 
+
 
 ## Labware Required
 This protocol requires the following custom labware:
