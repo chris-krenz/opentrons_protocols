@@ -1,7 +1,5 @@
 from opentrons import protocol_api
 from opentrons.types import Point
-from opentrons.protocol_api import PARTIAL_COLUMN, ALL
-from opentrons.protocol_api import SINGLE, ALL
 
 # Edit the numbers here to suit your needs
 standards_number = 8
@@ -10,6 +8,9 @@ unknown_number = 4
 # or accpet up to 18 unknowns and 3 replicates
 replicates_number = 1  # Supports up to 3 replicates depending on number of unknowns
 volume_reagent_per_sample = 200  # uL
+
+#v-well or diamond-well? Input 1 for v-well or 2 for diamond-well
+well_type = 1
 
 metadata = {
     'protocolName': 'Pierce Gold BCA Assay',
@@ -22,8 +23,14 @@ requirements = {
     'apiLevel': '2.25'
 }
 
-
 def run(protocol: protocol_api.ProtocolContext):
+
+    # well type
+    if well_type == 1:
+        well = 'nest_12_reservoir_15ml'
+    else: 
+        well = 'usascientific_12_reservoir_22mL'
+    
     # Load trash bin
     trash = protocol.load_trash_bin('A3')
 
@@ -33,7 +40,7 @@ def run(protocol: protocol_api.ProtocolContext):
     heater_shaker = protocol.load_module('heaterShakerModuleV1', 'C1')
 
     # Load labware
-    reservoir = protocol.load_labware('opentrons_tough_12_reservoir_22ml', 'D1')
+    reservoir = protocol.load_labware(well, 'D1')
     standard_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D2')
     unknown_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D3')
 
@@ -43,7 +50,7 @@ def run(protocol: protocol_api.ProtocolContext):
     # Load labware on heater shaker module
     hs_plate = hs_adapter.load_labware(
         "nunc_96_wellplate_optical_bottom_400ul",
-        label="Nunc well plate on Heater Shaker"
+        label="Nunc well plate on Heater_Shaker"
     )
 
     # Load tip racks for all operations
@@ -85,11 +92,21 @@ def run(protocol: protocol_api.ProtocolContext):
     )
 
     # Calculating total reagent needed
-    total_reagent = (round(((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample))) + 300
+    if well_type == 1:
+        # Calculating total reagent needed for v-well reservoir
+        total_reagent = (round(((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample))) + 300
 
-    # Load liquids into labware
-    reservoir['A1'].load_liquid(liquid=reagent_a, volume=(total_reagent + 200))
-    standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) + 50)
+        # Load liquids into labware
+        reservoir['A1'].load_liquid(liquid=reagent_a, volume=(total_reagent + 200))
+        standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) + 30)
+
+    else: 
+        total_reagent = (round(
+        ((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample) * 1.15)) + (150 * (8 - (unknown_number % 8)))
+
+        # Load liquids into labware
+        reservoir['A1'].load_liquid(liquid=reagent_a, volume=(total_reagent + 400))
+        standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) + 30)
 
     # Establishing where the standards will go in the tube rack
     standard_sources = standard_tube_rack.wells()[:standards_number]
@@ -118,21 +135,18 @@ def run(protocol: protocol_api.ProtocolContext):
     # Close heater shaker latch
     heater_shaker.close_labware_latch()
 
-    protocol.pause(
-        f'Please load {total_reagent} of Reagent A into the reservoir, and {(total_reagent / 50) + 30} of reagent B into the tube before continuing.')
-
     # ===== STEP 1: Microplate Procedure - Transferring Standards =============================================
     protocol.comment('Transferring BSA standards to well plate')
 
-    p1000_single.flow_rate.aspirate = 10
-    p1000_single.flow_rate.dispense = 10
+    p1000_single.flow_rate.aspirate = 15
+    p1000_single.flow_rate.dispense = 15
 
     # Get the replicate destination columns (columns 2, 3, 4, etc.)
     for idx, source in enumerate(standard_sources):
         destinations = get_destination_wells(idx, start_column=0, columns_per_replicate=1)
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(2, 50, source)  # Mix at source before aspirating
+        p1000_single.mix(1, 50, source)  # Mix at source before aspirating
         p1000_single.blow_out(source.top())
         p1000_single.aspirate(10 * replicates_number, source.bottom(1))  # Single source (will be stretched to match destinations)
 
@@ -155,7 +169,7 @@ def run(protocol: protocol_api.ProtocolContext):
                                              )
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(2, 50, source)  # Mix at source before aspirating
+        p1000_single.mix(1, 50, source)  # Mix at source before aspirating
         p1000_single.blow_out(source.top())
         p1000_single.aspirate(10 * replicates_number, source.bottom(1))  # Single source (will be stretched to match destinations)
 
@@ -167,7 +181,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
         p1000_single.drop_tip()
 
-    # ===== STEP 3: Prepare BCA Working Reagent =====
+    # ===== STEP 3: Prepare BCA Working Reagent ===============================================================
     reagent_a_volume = total_reagent  # µL
     reagent_b_volume = total_reagent / 50  # µL
 
@@ -177,12 +191,12 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_multi.pick_up_tip()
     p1000_single.pick_up_tip()
 
-    p1000_multi.flow_rate.aspirate = 100
+    p1000_multi.flow_rate.aspirate = 200
     p1000_multi.flow_rate.dispense = 100
 
     p1000_multi.transfer(
         reagent_a_volume / 8,
-        reservoir['A1'].bottom(-0.30),
+        reservoir['A1'].bottom(-0.20),
         reservoir['A2'],
         new_tip='never',
         touch_tip = True
@@ -306,7 +320,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
             p1000_multi.transfer(
                 200,
-                reservoir['A2'].bottom(-0.30),
+                reservoir['A2'].bottom(-0.20),
                 hs_plate[target_well],
                 blow_out=True,
                 blowout_location='destination well',
@@ -323,7 +337,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
             p1000_single.transfer(
                 200,
-                reservoir['A2'].bottom(-0.4),
+                reservoir['A2'].bottom(-0.20),
                 hs_plate[target_well],
                 blow_out=True,
                 blowout_location='destination well',
@@ -349,5 +363,3 @@ def run(protocol: protocol_api.ProtocolContext):
 
     protocol.comment(
         'BCA Protein Assay protocol complete, please send wellplate to platereader immediately to read at 480nm. You have 20 seconds')
-
-
