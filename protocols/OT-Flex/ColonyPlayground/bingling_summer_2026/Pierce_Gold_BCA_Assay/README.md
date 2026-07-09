@@ -104,7 +104,11 @@ This protocol requires the following custom labware:
 
 ## Protocol Validations
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
-- Compare to a manual run, the slopes of both should be close when using the same standards. 
+- Compare to a manual run, the slopes of both should be close when using the same standards.
+
+Calculator: [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/1jOXZw7FV0UNM_kc2e0GPSbrMJrRpSWRYMfU1zicM1bA/edit?usp=sharing)
+  </details>
+
 
 ## Protocol Updates
 - Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent.
