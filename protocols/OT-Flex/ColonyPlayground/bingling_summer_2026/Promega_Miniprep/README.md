@@ -97,5 +97,6 @@ This protocol requires the following custom labware:
 - Validate in Nanodrop
 
 ## Protocol Updates
+- Ver. 3: Adjusted flex gripper offset to avoid liquid spilling when moving labwares. 
 - Ver. 2: Added transfer with liquid class function volatile (80% ethanol) and viscous (50% glycerol) liquids. Also added flow rate adjustments for small volumes.
 - Ver. 1: Moved collection plate off deck when no longer needed to save deck space for the rest of the protocol. 
