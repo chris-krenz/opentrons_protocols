@@ -1,7 +1,13 @@
 from opentrons import protocol_api
+from opentrons.protocol_api import PARTIAL_COLUMN, ALL
+from opentrons.protocol_api import SINGLE, ALL
 
 # Edit the numbers here to suit your needs
 bacteria_number = 8 # up to 96 (keep to multiples of 8 for the multichannel pipette)
+
+#Change module location base on your own setup
+temp_module_location = 'C3'
+heater_shaker_location = 'C1'
 
 metadata = {
     'protocolName': 'Promega Miniprep Draft',
@@ -84,19 +90,20 @@ def run(protocol: protocol_api.ProtocolContext):
         display_color="#913FFC"
     )
 
-    ethanol_80 = protocol.define_liquid(
+    ethanol = protocol.define_liquid(
         name='80 percent Ethanol',
         display_color="#D6D6D6"
     )
 
     # Load liquids into labware
-    reservoir['A1'].load_liquid(liquid=resuspension_solution, volume=1000)
-    reservoir['A2'].load_liquid(liquid=lysis_solution, volume=1000)
-    reservoir['A3'].load_liquid(liquid=neutralization_solution, volume=1000)
-    reservoir['A4'].load_liquid(liquid=magnesil_blue, volume=1000)
-    reservoir['A5'].load_liquid(liquid=magnesil_red, volume=1000)
-    reservoir['A6'].load_liquid(liquid=ethanol_80, volume=5000)
-    reservoir['A7'].load_liquid(liquid=elution_buffer, volume=1000)
+    reservoir['A1'].load_liquid(liquid=lysis_solution, volume=1000)
+    reservoir['A2'].load_liquid(liquid=neutralization_solution, volume=1000)
+    reservoir['A3'].load_liquid(liquid=magnesil_blue, volume=1000)
+    reservoir['A4'].load_liquid(liquid=magnesil_red, volume=1000)
+    viscous_liquid = protocol.get_liquid_class(name="glycerol_50")
+    reservoir['A5'].load_liquid(liquid=ethanol, volume=5000)
+    volatile_liquid = protocol.get_liquid_class(name="ethanol_80")
+    reservoir['A6'].load_liquid(liquid=elution_buffer, volume=1000)
 
     # Establishing where the bacteria culture will go in the deep well plate
     bacteria_location = deep_wellplate.wells()[:bacteria_number]
@@ -104,47 +111,52 @@ def run(protocol: protocol_api.ProtocolContext):
     for well in bacteria_location:
         well.load_liquid(liquid=bacterial_culture, volume=1000)
 
-    # ========================= STEP 1: Cell Resuspension =======================================================
-    protocol.comment('Adding 90 uL of resuspension solution to the deep well plate')
-
-    # Close heater shaker latch
-    heater_shaker.close_labware_latch()
+    if bacteria_number / 8 < 3:
+        tipsize = tiprack200
+    else:
+        tipsize = tiprack1000
 
     # Determining where the 8-channel pipette will go
     well_location = []
     for i in range(int(bacteria_number / 8)):
         well_location.append(8 * i)
+
+    # Get properties for your specific pipette and tip combination
+    custom_viscous_properties = viscous_liquid.get_for(p1000_multi, tiprack200)
+    
+    # Enable mixing BEFORE aspirate
+    custom_viscous_properties.aspirate.mix.enabled = True
+    custom_viscous_properties.aspirate.mix.repetitions = 3  # Mix 3 times
+    custom_viscous_properties.aspirate.mix.volume = 100      # Mix with 100 µL
+    
+    # Enable mixing AFTER dispense
+    custom_viscous_properties.dispense.mix.enabled = True
+    custom_viscous_properties.dispense.mix.repetitions = 3  # Mix 3 times
+    custom_viscous_properties.dispense.mix.volume = 100     # Mix with 100 µL
+  
+    # ========================= STEP 1: Cell Lysis and Lysate Clearing =======================================================
+    protocol.comment('Adding 120 uL of lysis solution to the deep well plate')
+
+    p1000_multi.flow_rate.aspirate = 100
+    p1000_multi.flow_rate.dispense = 100
+
+    # Close heater shaker latch
+    heater_shaker.close_labware_latch()
     
     deep_well_dest_top = [deep_wellplate.wells()[well].top(-2) for well in well_location]
-  
+    
     p1000_multi.distribute(
-        90,
+        120,
         reservoir['A1'],
         deep_well_dest_top,
         touch_tip=True,
         new_tip='once',
-        )
-    
-    #heater_shaker.set_and_wait_for_shake_speed(1350)  # Set rpm
-    #protocol.delay(minutes=5)  # Shake for 5 minutes
-
-    # Stop shaking
-    #heater_shaker.deactivate_shaker()
-
-    # ========================= STEP 2: Cell Lysis and Lysate Clearing =======================================================
-    protocol.comment('Adding 120 uL of lysis solution to the deep well plate')
-    
-    p1000_multi.distribute(
-        120,
-        reservoir['A2'],
-        deep_well_dest_top,
-        touch_tip=True,
-        new_tip='once',
-        disposal_volume=0
+        disposal_volume=0,
+        tip_racks = [tiprack1000]
         )
 
-    #heater_shaker.set_and_wait_for_shake_speed(810)  # Set rpm
-    #protocol.delay(minutes=3)  # Shake for 3 minutes
+    #heater_shaker.set_and_wait_for_shake_speed(1800)  # Set rpm
+    #protocol.delay(minutes=1)  # Shake for 1 minutes
 
     # Stop shaking
     #heater_shaker.deactivate_shaker()
@@ -153,33 +165,40 @@ def run(protocol: protocol_api.ProtocolContext):
     
     p1000_multi.distribute(
         120,
-        reservoir['A3'],
+        reservoir['A2'],
         deep_well_dest_top,
         touch_tip=True,
         new_tip='once',
-        disposal_volume=0
+        disposal_volume=0,
+        tip_racks = [tiprack1000]
         )
 
-    #heater_shaker.set_and_wait_for_shake_speed(1350)  # Set rpm
-    #protocol.delay(minutes=3)  # Shake for 3 minutes
+    #heater_shaker.set_and_wait_for_shake_speed(1800)  # Set rpm
+    #protocol.delay(minutes=1)  # Shake for 1 minutes
 
     # Stop shaking
     #heater_shaker.deactivate_shaker()
 
     protocol.comment('Adding 25 uL of magnesil blue to the deep well plate')
-    
-    p1000_multi.pick_up_tip(tiprack200)
-    p1000_multi.distribute(
-        25,
-        reservoir['A4'],
-        deep_well_dest_top,
-        touch_tip=True,
-        new_tip='never',
-        disposal_volume=0
-        )
-    p1000_multi.drop_tip()
 
-    #heater_shaker.set_and_wait_for_shake_speed(1350)  # Set rpm
+    p1000_multi.flow_rate.aspirate = 25
+    p1000_multi.flow_rate.dispense = 25
+
+    deep_well_dest_middle = [deep_wellplate.wells()[well] for well in well_location]
+
+    p1000_multi.transfer_with_liquid_class(
+        liquid_class = viscous_liquid,
+        volume = 25,
+        source = reservoir['A3'],
+        dest = deep_well_dest_middle,
+        new_tip='always',
+        tip_racks = [tiprack200]
+    )
+
+    p1000_multi.flow_rate.aspirate = 250
+    p1000_multi.flow_rate.dispense = 250
+
+    #heater_shaker.set_and_wait_for_shake_speed(1200)  # Set rpm
     #protocol.delay(minutes=1)  # Shake for 1 minute
 
     # Stop shaking
@@ -188,7 +207,6 @@ def run(protocol: protocol_api.ProtocolContext):
     protocol.comment('Adding 300 uL of neutralized lysis from the deep well plate to the clearing plate')
 
     clearing_plate_dest = [clearing_plate.wells()[well] for well in well_location]
-    deep_well_dest_middle = [deep_wellplate.wells()[well] for well in well_location]
 
     for src, dest in zip(deep_well_dest_middle, clearing_plate_dest):
        p1000_multi.transfer(
@@ -199,49 +217,54 @@ def run(protocol: protocol_api.ProtocolContext):
            new_tip='always'
         )
     
-    protocol.comment('Delaying for 90 seconds to allow the magnetized pellet to form')
+    protocol.comment('Delaying for 2 minutes to allow the magnetized pellet to form')
 
-    #protocol.delay(seconds=90)  # delay 90 seconds
+    #protocol.delay(minutes=2)  # delay 2 minutes
 
 
     # ========================= STEP 3: DNA Binding =======================================================
 
     protocol.comment('Adding 25 uL of magnesil red to the new binding plate')
 
+    p1000_multi.flow_rate.aspirate = 20
+    p1000_multi.flow_rate.dispense = 20
+
     protocol.move_labware(
         labware=binding_plate,
         new_location="D2", 
         use_gripper=True,  
-        pick_up_offset={"x": 0, 'y': 0, 'z': (13*2)},    # Fine-tune if needed
-        drop_offset={"x": 0, 'y': 0, 'z': 2.5}        # Fine-tune stacking height
+        pick_up_offset={"x": 0, 'y': 0, 'z': (13*2)},    
+        drop_offset={"x": 0, 'y': 0, 'z': 2.5}  # good
     )
 
     #Determining where the 8-channel pipette will go in the binding plate
-    binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
+    binding_plate_dest = [binding_plate.wells()[well] for well in well_location]
 
-    p1000_multi.pick_up_tip(tiprack200)
-    p1000_multi.distribute(
-        25,
-        reservoir['A5'],
-        binding_plate_dest_top,
-        touch_tip=True,
-        new_tip='never',
-        disposal_volume=0
+    p1000_multi.transfer_with_liquid_class(
+        liquid_class = viscous_liquid,
+        volume = 25,
+        source = reservoir['A5'],
+        dest = binding_plate_dest,
+        new_tip='once',
+        tip_racks = [tiprack200]
         )
-    p1000_multi.drop_tip()
     
     protocol.comment('Adding 120 uL of the clear lysate to the new binding plate')
 
+    p1000_multi.flow_rate.aspirate = 120
+    p1000_multi.flow_rate.dispense = 120
+
+    binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
+
     for src, dest in zip(clearing_plate_dest, binding_plate_dest_top):
-       p1000_multi.pick_up_tip(tiprack200)
        p1000_multi.transfer(
            120,
            src,
            dest,
            touch_tip=True,
-           new_tip='never'
-        )
-       p1000_multi.drop_tip()
+           new_tip='once',
+           tip_racks = [tiprack200]
+       )
        
     # Open heater shaker latch
     heater_shaker.open_labware_latch()
@@ -252,8 +275,8 @@ def run(protocol: protocol_api.ProtocolContext):
         binding_plate,
         new_location=hs_adapter,
         use_gripper=True,
-        pick_up_offset={"x": 0, 'y': 0, 'z': -2},    # Fine-tune if needed
-        drop_offset={"x": 0.5, 'y': 0, 'z': -3}
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2}, 
+        drop_offset={"x": 0.5, 'y': 0, 'z': -3} #good
     ) 
 
     heater_shaker.close_labware_latch()
@@ -269,15 +292,15 @@ def run(protocol: protocol_api.ProtocolContext):
         clearing_plate,
         new_location="D3",
         use_gripper=True,
-        pick_up_offset={"x": 0, 'y': 0, 'z': -2},    # Fine-tune if needed
-        drop_offset={"x": 0, 'y': 0, 'z': 0}
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2}, 
+        drop_offset={"x": 0, 'y': 0, 'z': -1} 
     ) 
 
     protocol.move_labware(
         binding_plate,
         new_location=mag_block,
         use_gripper=True,
-        drop_offset={"x": 0, 'y': 0, 'z': -4.5} #perfect offset
+        drop_offset={"x": -0.2, 'y': 0, 'z': -3.5} #good
     )
 
     protocol.comment('Removing supernatant from the binding plate')
@@ -297,7 +320,7 @@ def run(protocol: protocol_api.ProtocolContext):
         new_location=hs_adapter,
         use_gripper=True,
         pick_up_offset={"x": 0, 'y': 0, 'z': -2},
-        drop_offset={"x": 0.5, 'y': 0, 'z': 2}
+        drop_offset={"x": 0.5, 'y': 0, 'z': 1}  #good
     )
 
     heater_shaker.close_labware_latch()
@@ -307,24 +330,31 @@ def run(protocol: protocol_api.ProtocolContext):
         new_location=mag_block,
         use_gripper=True,
         pick_up_offset={"x": 0, 'y': 0, 'z': -2},
-        drop_offset={"x": 0.5, 'y': 0, 'z': -5.7}
+        drop_offset={"x": 0.5, 'y': 0, 'z': -6}  #good
     )
 
     protocol.comment('Adding 25 uL more Magnesil Red to the binding plate')
 
-    binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
+    binding_plate_dest = [binding_plate.wells()[well] for well in well_location]
 
-    p1000_multi.distribute(
-        25,
-        reservoir['A5'],
-        binding_plate_dest_top,
-        touch_tip=True,
+    p1000_multi.flow_rate.aspirate = 20
+    p1000_multi.flow_rate.dispense = 20
+
+    p1000_multi.transfer_with_liquid_class(
+        liquid_class = viscous_liquid,
+        volume = 25,
+        source = reservoir['A5'],
+        dest = binding_plate_dest,
         new_tip='once',
-        disposal_volume=0,
-        tip_rack = [tiprack200]
+        tip_racks = [tiprack200]
     )
 
     protocol.comment('Adding reamaining 120 uL of the clear lysate to the binding plate')
+
+    binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
+
+    p1000_multi.flow_rate.aspirate = 120
+    p1000_multi.flow_rate.dispense = 120
 
     p1000_multi.transfer(
         120,
@@ -344,7 +374,7 @@ def run(protocol: protocol_api.ProtocolContext):
         clearing_plate,
         new_location="D3",
         use_gripper=True,
-        drop_offset={"x": 175, 'y': 0, 'z': 10} 
+        drop_offset={"x": 175, 'y': 0, 'z': 6} 
     )
 
     del protocol.deck["D3"]
@@ -353,7 +383,8 @@ def run(protocol: protocol_api.ProtocolContext):
         binding_plate,
         new_location=mag_block,
         use_gripper=True,
-        drop_offset={"x": 0, 'y': 0, 'z': -5} #perfect offset
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2},
+        drop_offset={"x": 0, 'y': 0, 'z': -7} #good
     )
 
     protocol.comment('Removing supernatant from the binding plate')
@@ -362,7 +393,7 @@ def run(protocol: protocol_api.ProtocolContext):
         110,
         binding_plate_supernatant_removal,
         reservoir['A12'],
-        tip_rack = 'tiprack200'
+        tip_racks = [tiprack200]
     )
     
     # ========================= STEP 4: Washing =======================================================
@@ -372,14 +403,16 @@ def run(protocol: protocol_api.ProtocolContext):
     binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
 
     for i in range(2):
-        p1000_multi.pick_up_tip(tiprack200)
 
-        p1000_multi.transfer(
-            100,
-            reservoir['A6'],
-            binding_plate_dest_top,
-            touch_tip=True,
-            new_tip='never',
+        protocol.comment('Adding 100 uL 80 percent ethanol to the binding plate')
+
+        p1000_multi.transfer_with_liquid_class(
+            liquid_class=volatile_liquid,
+            volume=100,
+            source=reservoir['A6'],
+            dest=binding_plate['A1'],
+            new_tip='once',
+            tip_racks = [tiprack200]
         )
 
         heater_shaker.open_labware_latch()
@@ -389,7 +422,7 @@ def run(protocol: protocol_api.ProtocolContext):
             new_location=hs_adapter,
             use_gripper=True,
             pick_up_offset={"x": 0, 'y': 0, 'z': -2},
-            drop_offset={"x": 0.5, 'y': 0, 'z': 3}
+            drop_offset={"x": 0.5, 'y': 0, 'z': 1} #good
         )
 
         heater_shaker.close_labware_latch()
@@ -401,8 +434,8 @@ def run(protocol: protocol_api.ProtocolContext):
             binding_plate,
             new_location=mag_block,
             use_gripper=True,
-            pick_up_offset={"x": 0, 'y': 0, 'z': -2}
-            drop_offset={"x": 0, 'y': 0, 'z': -4.5} #perfect offset
+            pick_up_offset={"x": 0, 'y': 0, 'z': -2},
+            drop_offset={"x": 0, 'y': 0, 'z': -7} #good
         )
 
         #protocol.delay(minutes=2)  # Allow pellet to form for 2 minute
@@ -415,28 +448,40 @@ def run(protocol: protocol_api.ProtocolContext):
             100,
             binding_plate_supernatant_removal,
             reservoir['A11'],
-            new_tip='never'
+            new_tip='once',
+            tip_racks = [tiprack200]
         )
-        p1000_multi.drop_tip()
 
     # ========================= STEP 5: Drying =======================================================
 
     protocol.comment('Drying binding plate for 10 minutes')
-    #protocol.delay(minutes=10)
 
     protocol.move_labware(
         binding_plate,
         new_location=hs_adapter,
         use_gripper=True,
         pick_up_offset={"x": 0, 'y': 0, 'z': -2},
-        drop_offset={"x": 0.5, 'y': 0, 'z': 3}
+        drop_offset={"x": 0.5, 'y': 0, 'z': 1}  #good
     )
+
+    heater_shaker.close_labware_latch()
+
+    #protocol.delay(minutes=10)
+
+    # hs_mod.set_and_wait_for_temperature(51)
+    # heater_shaker.set_and_wait_for_shake_speed(1200)  # Set rpm
+    # protocol.delay(minutes=2)  # Shake for 2 minute
+
+    # hs_mod.deactivate_shaker()
+    # protocol.delay(minutes=2)  # Shake for 2 minute
+    # hs_mod.deactivate_heater()
 
     # ========================= STEP 6: Elution of DNA =======================================================
     
     protocol.comment('Adding 100 uL of elution buffer into the binding plate')  
 
-    heater_shaker.close_labware_latch()
+    p1000_multi.flow_rate.aspirate = 90
+    p1000_multi.flow_rate.dispense = 90
 
     binding_plate_dest_top = [binding_plate.wells()[well].top(-0.2) for well in well_location]
     p1000_multi.transfer(
@@ -444,18 +489,20 @@ def run(protocol: protocol_api.ProtocolContext):
         reservoir['A7'],
         binding_plate_dest_top,
         touch_tip=True,
-        new_tip='once'
+        new_tip='once',
+        tip_racks = [tipsize]
     ) 
 
     #heater_shaker.set_and_wait_for_shake_speed(1200)  # Set rpm
-    #protocol.delay(minutes=2)  # Shake for 2 minute
+    #protocol.delay(minutes=5)  # Shake for 2 minute
     heater_shaker.open_labware_latch()
 
     protocol.move_labware(
         binding_plate,
         new_location=mag_block,
         use_gripper=True,
-        drop_offset={"x": 0, 'y': 0, 'z': -5} #perfect offset
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2},
+        drop_offset={"x": 0, 'y': 0, 'z': -7} #good
     )
 
     protocol.comment('Moving elution plate')  
@@ -465,8 +512,8 @@ def run(protocol: protocol_api.ProtocolContext):
         labware=elution_plate,
         new_location="D2", 
         use_gripper=True,  
-        pick_up_offset={"x": 0, 'y': 0, 'z': 13},    # Fine-tune if needed
-        drop_offset={"x": 0, 'y': 0, 'z': 2.5}        # Fine-tune stacking height
+        pick_up_offset={"x": 0, 'y': 0, 'z': 13},    
+        drop_offset={"x": 0, 'y': 0, 'z': 2.5}   # good
     )
 
     protocol.comment('Transferring 80-90 uL of eluate from binding plate to the elution plate')  
@@ -479,15 +526,16 @@ def run(protocol: protocol_api.ProtocolContext):
         binding_plate_supernatant_removal,
         elution_plate_middle,
         touch_tip=True,
-        new_tip='once'
+        new_tip='always',
+        tip_racks = [tiprack200]
     ) 
 
     protocol.move_labware(
         binding_plate,
         new_location=hs_adapter,
         use_gripper=True,
-        pick_up_offset={"x": 0, 'y': 0, 'z': -2},    # Fine-tune if needed
-        drop_offset={"x": 0, 'y': 0, 'z': -3}
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2}, 
+        drop_offset={"x": 0.2, 'y': 0, 'z': -3} #good
     ) 
 
     heater_shaker.close_labware_latch()
@@ -496,7 +544,8 @@ def run(protocol: protocol_api.ProtocolContext):
         elution_plate,
         new_location=mag_block,
         use_gripper=True,
-        drop_offset={"x": 0, 'y': 0, 'z': -2} #perfect offset
+        pick_up_offset={"x": 0, 'y': 0, 'z': -2},
+        drop_offset={"x": 0, 'y': 0, 'z': -7} #good
     )
 
     #protocol.delay(minutes=5)  # Stand for 5 minutes
@@ -507,8 +556,8 @@ def run(protocol: protocol_api.ProtocolContext):
         labware=final_plate,
         new_location="D2", 
         use_gripper=True,  
-        pick_up_offset={"x": 0, 'y': 0, 'z': -1.2},    # Fine-tune if needed
-        drop_offset={"x": 0, 'y': 0, 'z': 2.5}        # Fine-tune stacking height
+        pick_up_offset={"x": 0, 'y': 0, 'z': -1.2},    
+        drop_offset={"x": -0.2, 'y': 0, 'z': 0}  # Fine-tune stacking height
     )
 
     protocol.comment('Transferring 80-90 uL of eluate from elution plate to the final plate')   
@@ -521,7 +570,9 @@ def run(protocol: protocol_api.ProtocolContext):
         elution_plate_removal,
         final_plate,
         touch_tip=True,
-        new_tip='once'
+        new_tip='always',
+        tip_racks = [tiprack200],
+        flow_rate = 100
     ) 
 
     heater_shaker.open_labware_latch()
