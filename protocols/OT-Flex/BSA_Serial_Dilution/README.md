@@ -20,9 +20,10 @@ The protocol performs automated serial dilutions of BSA in 2 duplicates using th
 ### Set up
 Before automation, place all labware accordance to the screen visualization set up
 
-Example Set Up image:<img width="799" height="593" alt="image" src="https://github.com/user-attachments/assets/1258b839-7be1-4210-93d6-f9da6ef3cd02" />
+Example Set Up image: <img width="761" height="600" alt="image" src="https://github.com/user-attachments/assets/4fa9f1dd-3b30-4eff-a561-6ec041e6c919" />
+
 - Liquid: Blue = water; Green = BSA stock
-- Tipracks: Blue = 1000 uL; Orange = 200 uL
+- Tipracks: Blue = 1000 uL; Orange = 200 uL; Purple = 50 uL.
 
 ### Procedure
 1. Place tubes in spot A1-A3 and B1-B3. Row A holding 1st set of BSA dilution, and row B holding the 2nd set (duplicate). Tube spot A6 and B6 will hold blanks.
@@ -34,8 +35,10 @@ Example Set Up image:<img width="799" height="593" alt="image" src="https://gith
 ## Protocol Validation
 - Water test: Testing with water and 10% glycerol with water coloring to validate even mixing.
 - BCA Assay: Measure protein concentration through BCA assay protocol.
+- Comparing manual and automated serial dilution using 10% glycerol and red water coloring, and then read the result in a plate reader. Absorbance value should be close. 
 
 ## Protocol Updates
+- Ver. 4: Added 50 uL tip for even more accurate pipetting, removed mixing for last dilution of 1:10, and adjusted flow rate further
 - Ver. 3: Changed dilution patterns for consistency, and simplify code for easier editing.
 - Ver. 2: Changed tip size for transferring 200 uL volumes to increase accuracy. 
 - Ver. 1: Code is updated with mixing at different heights for more even mixing. 
