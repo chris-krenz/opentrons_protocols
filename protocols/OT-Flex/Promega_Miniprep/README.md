@@ -93,6 +93,8 @@ This protocol requires the following custom labware:
 
 [custom_labware/greiner_96_deep_wellplate_2000ul.json](https://github.com/bingling-w/opentrons_protocols/blob/29361d83081d2a70c38b127bdfcdc24d1e554025/custom_labware/greiner_96_deep_wellplate_2000ul.json)
 
+[custom_labware/greiner_96_microplate 280ulul.json](https://github.com/bingling-w/opentrons_protocols/blob/27faed698ad127100460ee679eb362f18b751a92/custom_labware/greiner_96_microplate_280ul.json)
+
 ## Protocol Validations (WIP)
 - Validate in Nanodrop
 
