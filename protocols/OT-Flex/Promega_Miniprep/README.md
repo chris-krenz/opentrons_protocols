@@ -6,7 +6,11 @@
 ## Overview
 The protocol performs automated Promega miniprep from the provided 96 collection plate using 
 the Opentrons Flex robot with an 1000uL 8-channel. The protocol is 
-flexible, allowing inputs for different numbers of wells, up to 32 wells in multiples of 8. 
+flexible, allowing inputs for different numbers of wells, up to 24 wells in multiples of 8. 
+
+The code is now flexible for choosing manual or automated resuspension steps.
+- Manual resuspension is good for: users who pellets and resuspend bacterias in tubes to transfer to deep wellplates
+- Automated resuspension is good for: users who pellets bacterias directly in the deep wellplates. 
 
 <details>
 <summary>Click here for Promega Miniprep Information</summary>
@@ -29,8 +33,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - Robot: Opentrons Flex
 - Hardware: Heater shaker with the universal flat plate, magnetic block V1, flex gripper
 - Pipette: Flex 8-Channel 1000 uL
-- Tips: One 200 uL tip rack and one 1000 uL tip rack
-- Plate: 96 well collection plates from the promega miniprep kit
+- Tips: Two 200 uL tip rack, one 1000 uL tip rack, and one 50 uL tiprack
 - Reservoir: Opentrons Tough 22 mL 12 Well Reservoir, greiner 96 deep well plate
 
 <details>
@@ -65,11 +68,11 @@ Here describes the keyword in each step of plasmid DNA isolation:
 ### Set up
 Before automation, place all labware accordance to the screen visualization set up
 
-Example Set Up image: <img width="763" height="576" alt="image" src="https://github.com/user-attachments/assets/008d1d9b-a4c6-4573-bd3f-16d4f9b713d3" />
+Example Set Up image: <img width="759" height="589" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
 
-- Liquid: Black = cell pellet; Green = resuspension sultion; Aqua = Lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Grey = 80% ethanol; Purple = Elution Buffer
-  - The solutions are placed in order of their usage.
-- Tiprack: Blue = 1000 uL; Orange = 200 uL
+- Liquid: Black = cell pellet; Aqua = lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Dark  Grey = 4/40 Wash, Light Grey: 80% ethanol; Purple = Elution Buffer; Brown = Isopropanol; Dark Blue = Resuspension solution
+  - Solution placement can be checked in protocol visualization in the Opentrons App. 
+- Tipracks: Blue = 1000 uL; Orange = 200 uL; Purple = 50 uL
 
 ### Procedure
 1. In deck space A2, place 3 of the plate stacked ontop of eachother.
@@ -93,12 +96,11 @@ This protocol requires the following custom labware:
 
 [custom_labware/greiner_96_deep_wellplate_2000ul.json](https://github.com/bingling-w/opentrons_protocols/blob/29361d83081d2a70c38b127bdfcdc24d1e554025/custom_labware/greiner_96_deep_wellplate_2000ul.json)
 
-[custom_labware/greiner_96_microplate 280ul.json](https://github.com/bingling-w/opentrons_protocols/blob/27faed698ad127100460ee679eb362f18b751a92/custom_labware/greiner_96_microplate_280ul.json)
-
 ## Protocol Validations (WIP)
 - Validate in Nanodrop
 
 ## Protocol Updates
+- Ver. 5: Change code to use suitable tips for different volumes, flexible for two setup (manual resuspension or automated resuspension steps), added a second 200 uL tiprack for cell amount above 8 wells, and changed all microplates to the deep wellplate. 
 - Ver. 4: Changed code based on protocol.io promega miniprep protocol. 
 - Ver. 3: Adjusted flex gripper offset to avoid liquid spilling when moving labwares. 
 - Ver. 2: Added transfer with liquid class function volatile (80% ethanol) and viscous (50% glycerol) liquids. Also added flow rate adjustments for small volumes.
