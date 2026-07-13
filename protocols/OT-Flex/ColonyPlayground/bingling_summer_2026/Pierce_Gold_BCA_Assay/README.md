@@ -5,4 +5,4 @@ This protocol performs automated Pierce Gold BCA assay kit from a 96 wellplate u
 
 The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates or accept up to 18 unknowns for 3 replicates.
 
-[For rest of protocol details, see here] (https://github.com/bingling-w/opentrons_protocols/blob/b1ec0c02c5e86098ba56da086d6d6e5b409ff91b/protocols/OT-Flex/Pierce_Gold_BCA_Assay/README.md)
+[For rest of protocol details, see here](https://github.com/bingling-w/opentrons_protocols/blob/b1ec0c02c5e86098ba56da086d6d6e5b409ff91b/protocols/OT-Flex/Pierce_Gold_BCA_Assay/README.md)
