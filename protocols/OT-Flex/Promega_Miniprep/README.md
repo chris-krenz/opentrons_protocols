@@ -63,7 +63,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 
 ## Protocol Summary
 >[!IMPORTANT]
->Pelleting the bacteria, discarding the supernatant and resuspending the pellet must be done manually before starting automated protocol. 
+>Pelleting the bacteria, discarding the supernatant (and resuspending if chosen to do manually) the pellet must be done manually before starting automated protocol. 
 
 ### Set up
 Before automation, place all labware accordance to the screen visualization set up
@@ -75,15 +75,13 @@ Example Set Up image: <img width="759" height="589" alt="image" src="https://git
 - Tipracks: Blue = 1000 uL; Orange = 200 uL; Purple = 50 uL
 
 ### Procedure
-1. In deck space A2, place 3 of the plate stacked ontop of eachother.
-2. Resuspends, lyses and neutralizes the cell in the deep wellplate. 
+1. In deck space A2, place the reservoir with all the reagents.
+2. (Resuspends if done automated), Lyses and neutralizes the cell in the deep wellplate. 
 3. Adds Magnesil BLUE into the deep wellplate and shakes on the shaker.
-4. Transfers lysate from deep wellplate to a clearing plate on the magnetic block to clear lysate. Unwanted pellets form in this step.
-5.  A new binding place is placed onto a new deck space using the flex gripper.
-6.  25 uL of Magnesil Red is added into the binding plate
-7.  Transfer 120 uL of cleared lysate from the clearing plate to the binding plate. Binding plate is shaked to mix. 
-8.  Binding plate is moved to magnetic block to form wanted pellets. Supernatant is discarded.
-9.  Repeat step 6-8 for the binding plate, then discard clearing plate. 
+4. Transfers lysate to row (clearing row) next to it, and transfers deep wellplate to the magnetic block to clear lysate. Unwanted pellets form in this step.
+6.  25 uL of Magnesil Red is added into the row (binding row) next to the clearing row.
+7.  Transfers 120 uL of cleared lysate from the clearing row to the binding row. Deep wellplate is put on the shaker to mix. 
+8.  Wellplate is moved to magnetic block to form wanted pellets. Supernatant is discarded.
 12. To wash, 100 uL of 80% ethanol is added, then shaken to mix. Afterwards, it's placed on the magnetic block, and supernatant is discarded. Repeat two more times for a total of 3 washes. 
 13.  Allow plate to dry for 10 minutes.
 14.  Adds elution buffer to the binding plate, shake to mix and place back on magnetic block to form unwanted pellets.
