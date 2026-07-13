@@ -6,7 +6,7 @@
 ## Overview
 The protocol performs automated Promega miniprep from the provided 96 collection plate using 
 the Opentrons Flex robot with an 1000uL 8-channel. The protocol is 
-flexible, allowing inputs for different numbers of wells, up to 96 wells but only in multiples of 8. 
+flexible, allowing inputs for different numbers of wells, up to 32 wells in multiples of 8. 
 
 <details>
 <summary>Click here for Promega Miniprep Information</summary>
@@ -60,7 +60,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 
 ## Protocol Summary
 >[!IMPORTANT]
->Pelleting the bacteria and discarding the supernatant in the 96 deep wellplate must be done manually before starting automated protocol. 
+>Pelleting the bacteria, discarding the supernatant and resuspending the pellet must be done manually before starting automated protocol. 
 
 ### Set up
 Before automation, place all labware accordance to the screen visualization set up
@@ -93,7 +93,7 @@ This protocol requires the following custom labware:
 
 [custom_labware/greiner_96_deep_wellplate_2000ul.json](https://github.com/bingling-w/opentrons_protocols/blob/29361d83081d2a70c38b127bdfcdc24d1e554025/custom_labware/greiner_96_deep_wellplate_2000ul.json)
 
-[custom_labware/greiner_96_microplate 280ulul.json](https://github.com/bingling-w/opentrons_protocols/blob/27faed698ad127100460ee679eb362f18b751a92/custom_labware/greiner_96_microplate_280ul.json)
+[custom_labware/greiner_96_microplate 280ul.json](https://github.com/bingling-w/opentrons_protocols/blob/27faed698ad127100460ee679eb362f18b751a92/custom_labware/greiner_96_microplate_280ul.json)
 
 ## Protocol Validations (WIP)
 - Validate in Nanodrop
