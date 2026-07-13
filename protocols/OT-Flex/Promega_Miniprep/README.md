@@ -70,7 +70,7 @@ Before automation, place all labware accordance to the screen visualization set 
 
 Example Set Up image: <img width="759" height="589" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
 
-- Liquid: Black = cell pellet; Aqua = lysis solution; Yellow = Neutralization solution; Blue = MagneSil blue; Red = MagneSil red; Dark  Grey = 4/40 Wash, Light Grey: 80% ethanol; Purple = Elution Buffer; Brown = Isopropanol; Dark Blue = Resuspension solution
+- Liquid: Black = cell pellet; A1 Aqua = lysis solution; A2 Yellow = Neutralization solution; A3 Blue = MagneSil blue; A4 Red = MagneSil red; A5 Dark Grey = 4/40 Wash; A6 Light Grey: 80% ethanol; A7 Purple = Elution Buffer; A8 Brown = Isopropanol; A9 Dark Blue = Resuspension solution
   - Solution placement can be checked in protocol visualization in the Opentrons App. 
 - Tipracks: Blue = 1000 uL; Orange = 200 uL; Purple = 50 uL
 
