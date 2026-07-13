@@ -27,9 +27,10 @@ def run(protocol: protocol_api.ProtocolContext):
     # Load tip rack
     tiprack1000 = protocol.load_labware('opentrons_flex_96_tiprack_1000ul', 'B2')
     tiprack200 = protocol.load_labware('opentrons_flex_96_tiprack_200ul', 'B3')
+    tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'A2')
 
     # Load pipette
-    p1000_single = protocol.load_instrument('flex_1channel_1000', 'left', tip_racks=[tiprack1000, tiprack200])
+    p1000_single = protocol.load_instrument('flex_1channel_1000', 'left', tip_racks=[tiprack1000, tiprack200, tiprack50])
     
     # Define wells
     # BSA stock is in D1 (bottom first row)
@@ -51,6 +52,9 @@ def run(protocol: protocol_api.ProtocolContext):
     
     # ========================= STEP 1: Adding Water =======================================================
     protocol.comment('Step 1: Adding water to tubes')
+
+    p1000_single.flow_rate.aspirate = 400
+    p1000_single.flow_rate.dispense = 400
     
     # Pick up tip once for all water additions
     p1000_single.pick_up_tip(tiprack1000)
@@ -62,8 +66,7 @@ def run(protocol: protocol_api.ProtocolContext):
         [tube_rack['A1'], tube_rack['A2'], tube_rack['B1'], tube_rack['B2']],
         disposal_volume = 0,
         touch_tip = True,
-        new_tip = 'never',
-        flow_rate = 350
+        new_tip = 'never'
     )
     
     # Add 180 µL water to A3 and B3
@@ -73,10 +76,12 @@ def run(protocol: protocol_api.ProtocolContext):
         [tube_rack['A3'], tube_rack['B3']],
         disposal_volume = 0,
         touch_tip = True,
-        new_tip = 'never',
-        flow_rate = 200
+        new_tip = 'never'
     )
     
+    p1000_single.flow_rate.aspirate = 700
+    p1000_single.flow_rate.dispense = 700 
+
     # Add 1000 µL water to A6 and B6 (blanks)
     p1000_single.transfer(
         1000,
@@ -96,10 +101,13 @@ def run(protocol: protocol_api.ProtocolContext):
     for i in row:
         protocol.comment(f"Performing serial dilution for row {i}, adding 200 uL of BSA stock to the first tube")
 
+        p1000_single.flow_rate.aspirate = 250
+        p1000_single.flow_rate.dispense = 130 
+
         p1000_single.pick_up_tip(tiprack200)
         p1000_single.mix(3, 200, tube_rack['D1'], dispense_flow_rate = 200)  # Mix 3 times with 200 µL
         p1000_single.blow_out(tube_rack['D1'].top())
-        p1000_single.aspirate(200, tube_rack['D1'], flow_rate = 200)
+        p1000_single.aspirate(200, tube_rack['D1'])
         p1000_single.dispense(200, tube_rack[f'{i}1'])
         p1000_single.mix(2, 200, tube_rack[f'{i}1'].bottom(2), dispense_flow_rate = 200)  # Mix 3 times with 200 µL
         p1000_single.mix(1, 200, tube_rack[f'{i}1'].bottom(4), dispense_flow_rate = 200)
@@ -110,7 +118,7 @@ def run(protocol: protocol_api.ProtocolContext):
         p1000_single.pick_up_tip(tiprack200)
         p1000_single.mix(3, 200, tube_rack[f'{i}1'], dispense_flow_rate = 200)
         p1000_single.blow_out(tube_rack[f'{i}1'].top())
-        p1000_single.aspirate(200, tube_rack[f'{i}1'], flow_rate = 200)
+        p1000_single.aspirate(200, tube_rack[f'{i}1'])
         p1000_single.dispense(200, tube_rack[f'{i}2'])
         p1000_single.mix(2, 200, tube_rack[f'{i}2'].bottom(2), dispense_flow_rate = 200)  # Mix 3 times with 200 µL
         p1000_single.mix(1, 200, tube_rack[f'{i}2'].bottom(4), dispense_flow_rate = 200)
@@ -118,13 +126,12 @@ def run(protocol: protocol_api.ProtocolContext):
         p1000_single.drop_tip()
         
         # Transfer 20 µL from calibration tube 2 (A2) to calibration tube 3 (A3)
-        p1000_single.pick_up_tip(tiprack200)
-        p1000_single.mix(3, 200, tube_rack[f'{i}2'], dispense_flow_rate = 200)
-        p1000_single.blow_out(tube_rack[f'{i}2'].top())
-        p1000_single.aspirate(20, tube_rack[f'{i}2'], flow_rate=20)
+        p1000_single.flow_rate.aspirate = 25
+        p1000_single.flow_rate.dispense = 10
+
+        p1000_single.pick_up_tip(tiprack50)
+        p1000_single.aspirate(20, tube_rack[f'{i}2'])
         p1000_single.dispense(20, tube_rack[f'{i}3'])
-        p1000_single.mix(2, 180, tube_rack[f'{i}3'], dispense_flow_rate = 100)
-        p1000_single.blow_out(tube_rack[f'{i}3'].top())
         p1000_single.drop_tip()
 
     protocol.comment("Serial dilution complete")
