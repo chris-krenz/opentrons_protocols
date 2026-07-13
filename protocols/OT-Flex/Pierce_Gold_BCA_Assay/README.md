@@ -29,6 +29,8 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   x = ( y - 0.0249 ) / 0.246
 
   So an absorbance reading of 1.426 means the unknown sample has a protein concentation of 5.696 mg/mL
+
+  [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/1jOXZw7FV0UNM_kc2e0GPSbrMJrRpSWRYMfU1zicM1bA/edit?usp=sharing)
   </details>
 
 
@@ -69,11 +71,17 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
 
 </details>
 
-## Protocol Summary
+## Automated Protocol Summary
 ### Setup
 Before automation, place all labware in the correct deck spot accordance to the screen visualization set up in the Opentrons software
 
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
+
+Nunc wellplate on the heater-shaker with the universal flat plate at C1
+
+Opentrons Reservoir at D1
+
+Tuberacks at D2 and D3
 
 - Liquid: Red = standards; yellow = unknowns; blue = reagent B; green = reagent A
 - Tipracks: Purple = 50 uL; Yellow = 200 uL
@@ -96,11 +104,21 @@ This protocol requires the following custom labware:
 
 ## Protocol Validations
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
-- Compare to a manual run, the slopes is the same. 
+- Water color validation:
+  - Using 10% glycerol, do serial dilution with red watercolor as standards.
+  - Add red coloring in reagent B, and use 10% glycerol as reagent A.
+  - Do an automated and manual run of the protocol.
+  - Compare the standard curve of the two, the slopes of both should be close when using the same standards.
+
+Calculator: [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/1jOXZw7FV0UNM_kc2e0GPSbrMJrRpSWRYMfU1zicM1bA/edit?usp=sharing)
+  </details>
+
 
 ## Protocol Updates
+- Ver. 11: Includes flexible input for v-bottom well or diamond-bottom wells. 
+- Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent.
 - Ver. 9: Code is made to blow out, touch tip, and blow out again to account for viscousity of unknowns and standards to prevent droplets. 
-- Ver. 8: Code is optimized to dispense and aspirate slower for more accurate 
+- Ver. 8: Code is optimized to dispense and aspirate slower for more accurate.
 - Ver. 7: Code is optimized to use small volume pipette arms and tips to minimize % error of the machine.
 - Ver. 6: Code is optimized to use partial nozzle set up for the 8-channel pipette when there is not a full column to reduce WR and tip waste.
 - Ver. 5: Code is made so pipette goes to the very bottom of the reservoir to reduce dead volume. 
