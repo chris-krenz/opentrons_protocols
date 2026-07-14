@@ -115,6 +115,7 @@ Calculator: [Standard curve and unknown concentration calculator](https://docs.g
 
 
 ## Protocol Updates
+- Ver. 12: Includes flexible input for changing module locations, and changing pipette locations (left or right mount) to further simplify the process especially for new users. 
 - Ver. 11: Includes flexible input for v-bottom well or diamond-bottom wells, accessible for users with different labwares. 
 - Ver. 10: Changed flow rate to be even slower, and added correct dead volume for working reagent. Slower flow rate results in more accurate pipetting, and the correct dead volume reduces liquid waste.
 - Ver. 9: Code is made to blow out, touch tip, and blow out again to account for viscousity of unknowns and standards to prevent droplets. 
