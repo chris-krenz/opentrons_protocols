@@ -4,9 +4,9 @@
 # Wizard® MagneSil® Plasmid Purification System (OT-Flex)
 
 ## Overview
-The protocol performs automated Promega miniprep from the provided 96 collection plate using 
+The protocol performs automated Promega miniprep from a 96 well deep wellplate using 
 the Opentrons Flex robot with an 1000uL 8-channel. The protocol is 
-flexible, allowing inputs for different numbers of wells, up to 24 wells in multiples of 8. 
+flexible, allowing inputs for different numbers of bacteria cell pellet, up to 24 wells in multiples of 8. 
 
 The code is now flexible for choosing manual or automated resuspension steps.
 - Manual resuspension is good for: users who pellets and resuspend bacterias in tubes to transfer to deep wellplates
@@ -26,7 +26,6 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - **Wash**: wash the bound DNA with 80% ethanol to remove remaining contaminants and impurities.
 - **Elute**: the purified plasmid DNA is released by adding an elution buffer,  turning it into a solution called the eluate to be used for further downstream applications. 
 
-
 </details>
 
 ## Protocol Materials
@@ -34,7 +33,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - Hardware: Heater shaker with the universal flat plate, magnetic block V1, flex gripper
 - Pipette: Flex 8-Channel 1000 uL
 - Tips: Two 200 uL tip rack, one 1000 uL tip rack, and one 50 uL tiprack
-- Reservoir: Opentrons Tough 22 mL 12 Well Reservoir, greiner 96 deep well plate
+- Reservoir: USA scientific 12 well 22mL reservoir, greiner 96 deep well plate
 
 <details>
 <summary>Click here for materials reference image</summary>
@@ -54,6 +53,8 @@ Here describes the keyword in each step of plasmid DNA isolation:
   Opentrons Tough 22 mL 12 Well Reservoir:
   
   <img width="350" height="260" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
+
+  
 
   Greiner 96 deep well plate 2.2 mL:
 
@@ -98,8 +99,9 @@ This protocol requires the following custom labware:
 - Validate in Nanodrop
 
 ## Protocol Updates
-- Ver. 5: Change code to use suitable tips for different volumes, flexible for two setup (manual resuspension or automated resuspension steps), added a second 200 uL tiprack for cell amount above 8 wells, and changed all microplates to the deep wellplate. 
-- Ver. 4: Changed code based on protocol.io promega miniprep protocol. 
+- Ver. 5: Change code to use suitable tips for different volumes, flexible for two setup (manual resuspension or automated resuspension steps), added a second 200 uL tiprack for cell pellet amount above 8 wells, and changed all microplates to the deep wellplate.
+  - Increased accuracy, flexible for people who does not have/want to use a wellplate centrifuge, add more tipracks to avoid running out of tips mid protocol, and changed wellplates to further match up with the protocol.io protocol. 
+- Ver. 4: Changed code based on protocol.io promega miniprep protocol, as protocol.io protocol has been tested to work automated on the Hamilton. 
 - Ver. 3: Adjusted flex gripper offset to avoid liquid spilling when moving labwares. 
-- Ver. 2: Added transfer with liquid class function volatile (80% ethanol) and viscous (50% glycerol) liquids. Also added flow rate adjustments for small volumes.
+- Ver. 2: Added transfer with liquid class function volatile (80% ethanol) and viscous (50% glycerol) liquids. Also added flow rate adjustments for small volumes for more accurate pipetting. 
 - Ver. 1: Moved collection plate off deck when no longer needed to save deck space for the rest of the protocol. 
