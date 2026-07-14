@@ -90,19 +90,8 @@ Set up the Flex accordingly to what the software shows.
 Example Set Up image: <img width="759" height="589" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
 
 ### Procedure
-1. In deck space A2, place the reservoir with all the reagents.
-2. (Resuspends if done automated), Lyses and neutralizes the cell in the deep wellplate. 
-3. Adds Magnesil BLUE into the deep wellplate and shakes on the shaker.
-4. Transfers lysate to row (clearing row) next to it, and transfers deep wellplate to the magnetic block to clear lysate. Unwanted pellets form in this step.
-6.  25 uL of Magnesil Red is added into the row (binding row) next to the clearing row.
-7.  Transfers 120 uL of cleared lysate from the clearing row to the binding row. Deep wellplate is put on the shaker to mix. 
-8.  Wellplate is moved to magnetic block to form wanted pellets. Supernatant is discarded.
-12. To wash, 100 uL of 80% ethanol is added, then shaken to mix. Afterwards, it's placed on the magnetic block, and supernatant is discarded. Repeat two more times for a total of 3 washes. 
-13.  Allow plate to dry for 10 minutes.
-14.  Adds elution buffer to the binding plate, shake to mix and place back on magnetic block to form unwanted pellets.
-15.  A new elution plate is placed, and the eluate from the binding plate is transferred to the elution plate.  
-16.  Remove residual particles by placing the elution plate on the magnetic block to allow unwanted pellets to form.
-17.  Transfers the eluate to a final collection plate to complete protocol. 
+For wetlab and protocol procedures follow the protocols.io instructions:\
+Insert protocols.io link here
 
 ## Labware Required (WIP)
 This protocol requires the following custom labware:
