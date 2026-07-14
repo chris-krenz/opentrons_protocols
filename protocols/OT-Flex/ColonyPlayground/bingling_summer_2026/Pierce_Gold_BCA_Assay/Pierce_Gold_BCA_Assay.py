@@ -1,16 +1,29 @@
 from opentrons import protocol_api
 from opentrons.types import Point
+from opentrons.protocol_api import PARTIAL_COLUMN, ALL
+from opentrons.protocol_api import SINGLE, ALL
 
 # Edit the numbers here to suit your needs
-standards_number = 8
-unknown_number = 4
 # Note this code can accept up to 24 unknowns and up to 2 replicates
 # or accpet up to 18 unknowns and 3 replicates
-replicates_number = 1  # Supports up to 3 replicates depending on number of unknowns
+standards_number = 8
+unknown_number = 4
+
+# Supports up to 3 replicates depending on number of unknowns
+replicates_number = 1 
+
 volume_reagent_per_sample = 200  # uL
 
 #v-well or diamond-well? Input 1 for v-well or 2 for diamond-well
 well_type = 1
+
+#Change module deck location base on your own setup
+temp_module_location = 'C3'
+heater_shaker_location = 'C1'
+
+#Change pipette location base on your own setup ('left' or 'right')
+pipette_8channel_1000_location = 'right'
+pipette_1channel_50_location = 'left'
 
 metadata = {
     'protocolName': 'Pierce Gold BCA Assay',
@@ -36,8 +49,8 @@ def run(protocol: protocol_api.ProtocolContext):
 
     # Load modules
     thermocycler = protocol.load_module('thermocyclerModuleV2')
-    temp_module = protocol.load_module('temperature module gen2', 'C3')
-    heater_shaker = protocol.load_module('heaterShakerModuleV1', 'C1')
+    temp_module = protocol.load_module('temperature module gen2', temp_module_location)
+    heater_shaker = protocol.load_module('heaterShakerModuleV1', heater_shaker_location)
 
     # Load labware
     reservoir = protocol.load_labware(well, 'D1')
@@ -60,12 +73,12 @@ def run(protocol: protocol_api.ProtocolContext):
     # Load pipettes
     p1000_single = protocol.load_instrument(
         'flex_1channel_50',
-        mount='left',
+        mount=pipette_1channel_50_location,
         tip_racks=[tiprack50]
     )
     p1000_multi = protocol.load_instrument(
         'flex_8channel_1000',
-        mount='right',
+        mount=pipette_8channel_1000_location,
         tip_racks=[tiprack200]
     )
 
