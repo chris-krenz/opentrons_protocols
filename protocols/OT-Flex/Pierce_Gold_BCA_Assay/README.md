@@ -115,10 +115,10 @@ Calculator: [Standard curve and unknown concentration calculator](https://docs.g
 
 
 ## Protocol Updates
-- Ver. 11: Includes flexible input for v-bottom well or diamond-bottom wells. 
-- Ver. 10: Changed flow rate to be even slower for accurate pipetting, and added correct dead volume for working reagent.
+- Ver. 11: Includes flexible input for v-bottom well or diamond-bottom wells, accessible for users with different labwares. 
+- Ver. 10: Changed flow rate to be even slower, and added correct dead volume for working reagent. Slower flow rate results in more accurate pipetting, and the correct dead volume reduces liquid waste.
 - Ver. 9: Code is made to blow out, touch tip, and blow out again to account for viscousity of unknowns and standards to prevent droplets. 
-- Ver. 8: Code is optimized to dispense and aspirate slower for more accurate.
+- Ver. 8: Code is optimized to dispense and aspirate slower for more accurate pipetting. 
 - Ver. 7: Code is optimized to use small volume pipette arms and tips to minimize % error of the machine.
 - Ver. 6: Code is optimized to use partial nozzle set up for the 8-channel pipette when there is not a full column to reduce WR and tip waste.
 - Ver. 5: Code is made so pipette goes to the very bottom of the reservoir to reduce dead volume. 
