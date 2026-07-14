@@ -66,14 +66,28 @@ Here describes the keyword in each step of plasmid DNA isolation:
 >[!IMPORTANT]
 >Pelleting the bacteria, discarding the supernatant (and resuspending if chosen to do manually) the pellet must be done manually before starting automated protocol. 
 
-### Set up
-Before automation, place all labware accordance to the screen visualization set up
+### Robot Set-up
+Before automation, download the Promega Miniprep.py file, edit the parameter to fit your needs, and import it into the Opentrons software.\
+Set up the Flex accordingly to what the software shows. 
+
+<details>
+<summary>Click here for further information about how to set-up for your first time</summary>
+  What the screen should look like when loaded. 
+  <img width="1531" height="299" alt="image" src="https://github.com/user-attachments/assets/5f80b3b5-0a5f-4a53-b624-a169e2c26481" />
+  
+  To see robot set-up on the software, press on the your chosen protocol. 
+  <img width="800" height="405" alt="image" src="https://github.com/user-attachments/assets/1ca5895e-dd85-4b84-956a-730e730ac0ec" />
+  
+  Click on the 'Visualize' button
+  In this window, you can view all the specific labware name when hovering over it, along with the steps with well view, pick tip usage, etc
+  >Make sure to see step 1 or 2 to make sure all liquid has been loaded before moving on to the next step.
+  <img width="800" height="484" alt="image" src="https://github.com/user-attachments/assets/be943cf2-f015-4152-ac51-b64af2421700" />
+  
+  When clicking on labwares, specifics like liquid type and liquid volume are shown.\
+  <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
+</details>
 
 Example Set Up image: <img width="759" height="589" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
-
-- Liquid: Black = cell pellet; A1 Aqua = lysis solution; A2 Yellow = Neutralization solution; A3 Blue = MagneSil blue; A4 Red = MagneSil red; A5 Dark Grey = 4/40 Wash; A6 Light Grey: 80% ethanol; A7 Purple = Elution Buffer; A8 Brown = Isopropanol; A9 Dark Blue = Resuspension solution
-  - Solution placement can be checked in protocol visualization in the Opentrons App. 
-- Tipracks: Blue = 1000 uL; Orange = 200 uL; Purple = 50 uL
 
 ### Procedure
 1. In deck space A2, place the reservoir with all the reagents.
