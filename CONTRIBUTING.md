@@ -29,7 +29,8 @@ Each protocol folder under `protocols/OT-Flex/` should include:
 Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
 - A `.py` protocol file
 - A `README.md`
-  - Link to the 'README.md' for the working/final protocols in the `protocols/OT-Flex/` folder. 
+  - Link to the 'README.md' for the working/final protocol in the `protocols/OT-Flex/` folder.
+  - Custom labware (if specific to that protocol) can be put under the working/final protocol folder. 
 - Input files (e.g., `.xlsx`), if needed
 
 **Robotics Colony Members:**
