@@ -16,16 +16,26 @@ Thank you for contributing to the DAMP Lab protocol repository! Please follow th
 
 Place each protocol in its own folder under `protocols/OT-2/` or `protocols/OT-Flex/`.
 
-Each protocol folder should include:
+Each protocol folder under `protocols/OT-Flex/` should include:
 - A `.py` protocol file
-- A `README.md` (labware, volumes, workflow)
+- A `README.md`
+  - Overview of the protocol/kit used.
+  - Robot hardware used.
+  - Protocol validation (tests to validate protocol works.)
+  - Protocol updates (Record major updates/changes to the code and why it was implements.)
 - Input files (e.g., `.xlsx`), if needed
 - Custom labware (if specific to that protocol)
 
+Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
+- A `.py` protocol file
+- A `README.md`
+  - Link to the 'README.md' for the working/final protocols in the `protocols/OT-Flex/` folder. 
+- Input files (e.g., `.xlsx`), if needed
+
 **Robotics Colony Members:**
 
-Place shared/assigned work in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username (e.g., `jsmith_supernatant_removal`).  
-Individual protocols should go directly in `protocols/OT-Flex/`.
+Place shared/draft work in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username (e.g., `jsmith_supernatant_removal`).  
+Working/final protocols should go directly in `protocols/OT-Flex/`.
 
 ## Custom Labware
 
