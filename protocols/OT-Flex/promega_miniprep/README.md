@@ -1,5 +1,5 @@
 > [!WARNING]
-> Working in process, code not tested in actual protocol
+> Working in process, not validated. 
 
 # Wizard® MagneSil® Plasmid Purification System (OT-Flex)
 
@@ -45,23 +45,15 @@ All labwares and consumable materials are listed [here](link to protocols.io mat
   Magnetic block V1
 
   <img width="320" height="180" alt="image" src="https://github.com/user-attachments/assets/5764cd49-03ae-450f-b735-6897b0fbd07a" />
-  
-  Opentrons Tough 22 mL 12 Well Reservoir:
-  
-  <img width="350" height="260" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
-
-  Greiner 96 deep well plate 2.2 mL:
-
-  <img width="310" height="255" alt="image" src="https://github.com/user-attachments/assets/523d010e-a8e7-4f87-8ff6-615b63fac689" />
 
 </details>
 
 ## Protocol Summary
 >[!IMPORTANT]
->Pelleting the bacteria, discarding the supernatant (resuspending if chosen to do manually) must be done manually before starting automation. 
+>The labware is labelled as the Opentrons Magnetic Block V1, but the protocol uses a different magnet block. Offset for the flex gripper is calibrated in the code already, but please calibrate the pipette to the height of the labware on the different magnet block. 
 
 ### Robot Set-up
-Before automation, download the Promega Miniprep.py file, edit the parameter to fit your needs, and import it into the Opentrons software.\
+Before automation, download the promega_miniprep.py file, edit the parameter to fit your needs, and import it into the Opentrons software.\
 Set up the Flex accordingly to what the software shows. 
 
 <details>
@@ -81,7 +73,7 @@ Set up the Flex accordingly to what the software shows.
   <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
 </details>
 
-Example Set Up image: <img width="759" height="589" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
+Example Set Up image: <img width="559" height="450" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
 
 ### Procedure
 For automation prep and protocol procedures follow the instructions [here](Insert protocols.io link here)
