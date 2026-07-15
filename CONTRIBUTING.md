@@ -35,13 +35,12 @@ Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
 
 **Robotics Colony Members:**
 
-Place shared/draft work in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username (e.g., `jsmith_supernatant_removal`).  
-Working/final protocols should go directly in `protocols/OT-Flex/`.
+Place shared/draft work in folders in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username, semester, and year (e.g., `jsmith_fall_2025`).  
+Working/final protocols should go in `protocols/OT-Flex/`.
 
 ## Custom Labware
 
 - Shared labware definitions (used by multiple protocols) should be placed in `custom_labware/`
-- If a labware definition is only used by a single protocol, it may be stored inside that protocol's folder
 - Do not duplicate shared labware definitions unless absolutely necessary
 
 ## Naming Conventions
