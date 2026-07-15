@@ -31,7 +31,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 ## Protocol Hardwares
 - Robot: Opentrons Flex
 - Hardware: Heater shaker with the universal flat plate, magnetic block V1, flex gripper, Flex HEPA unit
-- Pipette: Flex 8-Channel 1000 uL
+- Pipette: Flex 8-Channel 1000 uL\
 All labwares and consumable materials are listed [here](link to protocols.io materials sections here)
 
 <details>
