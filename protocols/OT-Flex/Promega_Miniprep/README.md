@@ -15,7 +15,7 @@ The code is now flexible for choosing manual or automated resuspension steps.
 <details>
 <summary>Click here for Promega Miniprep Information</summary>
 
-The Promega miniprep is for rapid isolation of plasmid DNA in a multiwell format using paramagnetic particles for lysate clearing and DNA capturing. The use of paramagnetic particles skips the need for centrifuging. 
+The Promega miniprep is for rapid isolation of plasmid DNA in a multiwell format using paramagnetic particles for lysate clearing and DNA capturing. The use of paramagnetic particles skips the need for centrifuging, making it ideal for automating. 
 
 Here describes the keyword in each step of plasmid DNA isolation:
 - **Resuspension**: cell pellet is suspended in a resuspension buffer to make the pellet a uniformed, liquid suspension. 
@@ -30,7 +30,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 
 ## Protocol Hardwares
 - Robot: Opentrons Flex
-- Hardware: Heater shaker with the universal flat plate, magnetic block V1, flex gripper, Flex HEPA unit
+- Hardware: Heater shaker with the universal flat plate, flex gripper, and flex HEPA unit
 - Pipette: Flex 8-Channel 1000 uL.
 
 All labwares and consumable materials are listed [here](link to protocols.io materials sections here)
