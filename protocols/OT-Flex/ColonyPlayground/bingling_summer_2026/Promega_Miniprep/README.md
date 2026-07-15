@@ -4,4 +4,4 @@
 # Wizard® MagneSil® Plasmid Purification System (OT-Flex)
 
 ## Overview
-[For protocol information, please see here](https://github.com/bingling-w/opentrons_protocols/tree/efbf13d420b0e1a38e9f13b668f48286ea139562/protocols/OT-Flex/Promega_Miniprep)
+[For protocol information, please see here](https://github.com/bingling-w/opentrons_protocols/blob/0d268bed73dd7a51fe530f03d476ebfbb50552fe/protocols/OT-Flex/promega_miniprep/README.md)
