@@ -34,17 +34,12 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   </details>
 
 
-## Protocol Materials
+## Protocol Hardwares
 > [!NOTE]
 > Standards and unknowns are placed in 1.5 mL snapcap tubes to make automation smoother
 - Robot: Opentrons Flex
-- Kit: Pierce Gold BCA Assay kit
 - Hardware: Heater shaker with the universal flat plate
 - Pipette: Flex 8-Channel 1000 µL and 1-Channel 50 µL
-- Tips: One 200 uL tip rack and one 50 uL tip rack
-- Plate: NUNC 96 wellplate optical bottom black (include picture)
-- Reservoir: Opentrons Tough 22 mL 12 Well Reservoir
-- Others: Two opentrons 24 tuberack holder
 
 <details>
 <summary>Click here for materials reference image</summary>
