@@ -37,7 +37,7 @@ def run(protocol: protocol_api.ProtocolContext):
     bsa_stock = protocol.define_liquid(
         name='BSA stock',
         display_color='#00FF00')
-    tube_rack['D1'].load_liquid(liquid=bsa_stock, volume=450)
+    tube_rack['D1'].load_liquid(liquid=bsa_stock, volume=400)
 
 
     water = protocol.define_liquid(
@@ -60,6 +60,7 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_single.pick_up_tip(tiprack1000)
     
     # Add 200 µL water to calibration tube 1 & 2 (A1, A2, B1, B2)
+    protocol.comment('Distributing 200 uL of water to tube A1, A2, B1 and B2')
     p1000_single.distribute(
         200,
         water_reservoir['A1'],
@@ -69,6 +70,7 @@ def run(protocol: protocol_api.ProtocolContext):
         new_tip = 'never'
     )
     
+    protocol.comment('Distributing 180 uL of water to tube A3 and B3')
     # Add 180 µL water to A3 and B3
     p1000_single.distribute(
         180,
@@ -82,6 +84,7 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_single.flow_rate.aspirate = 700
     p1000_single.flow_rate.dispense = 700 
 
+    protocol.comment('Distributing 1000 uL of water to tube A6 and B6 (blanks)')
     # Add 1000 µL water to A6 and B6 (blanks)
     p1000_single.transfer(
         1000,
@@ -114,6 +117,7 @@ def run(protocol: protocol_api.ProtocolContext):
         p1000_single.blow_out(tube_rack[f'{i}1'].top())
         p1000_single.drop_tip()
  
+        protocol.comment(f"Performing serial dilution for row {i}, adding 200 uL of BSA stock to the second tube")
         # Transfer 200 µL from calibration tube 1 (A1) to calibration tube 2 (A2)
         p1000_single.pick_up_tip(tiprack200)
         p1000_single.mix(3, 200, tube_rack[f'{i}1'], dispense_flow_rate = 200)
@@ -129,6 +133,7 @@ def run(protocol: protocol_api.ProtocolContext):
         p1000_single.flow_rate.aspirate = 25
         p1000_single.flow_rate.dispense = 10
 
+        protocol.comment(f"Performing serial dilution for row {i}, adding 20 uL of BSA stock to the third tube")
         p1000_single.pick_up_tip(tiprack50)
         p1000_single.aspirate(20, tube_rack[f'{i}2'])
         p1000_single.dispense(20, tube_rack[f'{i}3'])
