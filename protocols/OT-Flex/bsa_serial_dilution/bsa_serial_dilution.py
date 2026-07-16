@@ -1,5 +1,14 @@
 from opentrons import protocol_api
 
+
+#Change module deck location base on your own setup
+temp_module_location = 'C3'
+heater_shaker_location = 'C1'
+
+#Change pipette location base on your own setup ('left' or 'right')
+pipette_1channel_1000_location = 'right'
+
+
 metadata = {
     'protocolName': 'BSA Serial Dilution in Duplicate',
     'author': 'Bing',
@@ -14,8 +23,8 @@ requirements = {
 def run(protocol: protocol_api.ProtocolContext):
     # Load modules
     thermocycler = protocol.load_module('thermocyclerModuleV2')
-    heater_shaker = protocol.load_module('heaterShakerModuleV1', 'C1')
-    temp_module = protocol.load_module('temperature module gen2', 'C3')
+    heater_shaker = protocol.load_module('heaterShakerModuleV1', 'heater_shaker_location')
+    temp_module = protocol.load_module('temperature module gen2', 'temp_module_location')
     
     # Load trash bin
     trash = protocol.load_trash_bin('A3')
@@ -30,7 +39,7 @@ def run(protocol: protocol_api.ProtocolContext):
     tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'A2')
 
     # Load pipette
-    p1000_single = protocol.load_instrument('flex_1channel_1000', 'left', tip_racks=[tiprack1000, tiprack200, tiprack50])
+    p1000_single = protocol.load_instrument('flex_1channel_1000', pipette_1channel_1000_location, tip_racks=[tiprack200, tiprack50, tiprack1000])
     
     # Define wells
     # BSA stock is in D1 (bottom first row)
