@@ -38,6 +38,19 @@ Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
 Place shared/draft work in folders in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username, semester, and year (e.g., `jsmith_fall_2025`).  
 Working/final protocols should go in `protocols/OT-Flex/`.
 
+## README.md Guidelines
+Format:
+- Overview: Basic information about the protocol, including the kit. 
+- Protocol Hardwares: hardware used by the protocol, like modules, pipettes, adapters, etc. and a link to the protocols.io materials section. 
+- Protocol Summary
+  - Robot Set-up: How to use and setup the protocol using the .py file and the Opentrons app.
+  - Procedure: Link to protocols.io protocol procedure
+- Custom Labware Required: Permalink to the custom labware .json used in the protocol.
+- Protocol Validation: How to validate the code to know it gives usable data/results.
+- Protocol Updates: Record of major changes made to the code and why. 
+
+Other informations/instructions, like consumables, labwares, growing cell cultures, validating cell cultures, using other instruments (nanodrop, plate reader), interpreting lab data, etc. will be kept in protocols.io 
+
 ## Custom Labware
 
 - Shared labware definitions (used by multiple protocols) should be placed in `custom_labware/`
