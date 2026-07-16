@@ -16,22 +16,8 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   The unknowns and standards will then be mixed with a working reagent created by mixing reagent A and reagent B provided by the kit. 
   
   The mixture will be left to incubate for 5 minutes at room temperature, and afterwards read in a plate reader at wavelength 480 nm. 
-  
-  <img width="1160" height="218" alt="image" src="https://github.com/user-attachments/assets/3210d5fc-5c4c-431f-bfea-8e2b65adba7d" />
-  
-  Above is a sample absorbance reading for 8 standards in column 1, and 4 unknowns in column 2. 
-  
-  The standard readings in column 1 will be turned into a linear regression graph shown below:
-  
-  <img width="370" height="270" alt="image" src="https://github.com/user-attachments/assets/ec320357-8061-4eb3-afae-40104f85c5c0" />
-  
-  The quadratic equation from the standard curve, y = 0.246x + 0.0249 (y = absorbance), will be used to calculate the unknown protein concentrations:
 
-  Ex. If the equation is y = 0.246x + 0.0249, isolate x (x = concentration (mg/mL))
-
-  x = ( y - 0.0249 ) / 0.246
-
-  So an absorbance reading of 1.426 means the unknown sample has a protein concentation of 5.696 mg/mL
+  Protein concentration and absorbance relationship is nearly linear. 
   </details>
 
 
