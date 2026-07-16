@@ -1,3 +1,6 @@
+> [!WARNING]
+> Validated in food coloring test, not with actual reagents
+
 # Pierce Dilution-Free Rapid Gold BCA Protein Assay Kit (OT-Flex)
 
 ## Overview
@@ -29,17 +32,17 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   x = ( y - 0.0249 ) / 0.246
 
   So an absorbance reading of 1.426 means the unknown sample has a protein concentation of 5.696 mg/mL
-
-  [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/1jOXZw7FV0UNM_kc2e0GPSbrMJrRpSWRYMfU1zicM1bA/edit?usp=sharing)
   </details>
 
 
 ## Protocol Hardwares
 > [!NOTE]
-> Standards and unknowns are placed in 1.5 mL snapcap tubes to make automation smoother
+> Standards and unknowns are transferred to 1.5 mL snapcap tubes to make automation smoother
 - Robot: Opentrons Flex
 - Hardware: Heater shaker with the universal flat plate
 - Pipette: Flex 8-Channel 1000 µL and 1-Channel 50 µL
+
+All labwares and consumable materials are listed [here](link to protocols.io materials sections here)
 
 <details>
 <summary>Click here for materials reference image</summary>
@@ -47,50 +50,37 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
   Heater-Shaker universal flat plate
 
   <img width="386" height="217" alt="image" src="https://github.com/user-attachments/assets/6d3ab0c3-4660-4dc9-8cd2-24c47ffe4edb" />
-  
-  NUNC 96 wellplate optical bottom black:
-  
-  <img width="350" height="300" alt="image" src="https://github.com/user-attachments/assets/0b0bcbca-94de-4adb-859c-b1a4f9ebb61b" />
-  
-  Opentrons Tough 22 mL 12 Well Reservoir:
-  
-  <img width="350" height="260" alt="image" src="https://github.com/user-attachments/assets/a10b9586-7cb7-46e7-a837-904160e4ec50" />
-
-  Opentrons 24 tuberack holder:
-
-  <img width="350" height="280" alt="image" src="https://github.com/user-attachments/assets/c35fd4fa-19fd-442d-aad7-b45a3afa3f42" />
-
-  Nest 1.5 mL snapcap:
-
-  <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/c30153fa-5061-484f-a0e8-510f70f14e0f" />
 
 </details>
 
 ## Automated Protocol Summary
 ### Setup
-Before automation, place all labware in the correct deck spot accordance to the screen visualization set up in the Opentrons software
+Before automation, download the pierce_gold_bca_assay.py file, edit the parameter to fit your needs, and import it into the Opentrons software.\
+Set up the Flex accordingly to what the software shows. 
+>[!IMPORTANT]
+>The liquid amount displayed is the bare minimum, perfect liquid dispersion may not always be guaranteed, it is suggested to add an extra reagent to prevent bubbles everytime.
+
+<details>
+<summary>Click here for further information about how to set-up for your first time</summary>
+  What the screen should look like when loaded. 
+  <img width="1531" height="299" alt="image" src="https://github.com/user-attachments/assets/5f80b3b5-0a5f-4a53-b624-a169e2c26481" />
+  
+  To see robot set-up on the software, press on the your chosen protocol. 
+  <img width="800" height="405" alt="image" src="https://github.com/user-attachments/assets/1ca5895e-dd85-4b84-956a-730e730ac0ec" />
+  
+  Click on the 'Visualize' button
+  In this window, you can view all the specific labware name when hovering over it, along with the steps with well view, pick tip usage, etc
+  >Make sure to see step 1 or 2 to make sure all liquid has been loaded before moving on to the next step.
+  <img width="800" height="484" alt="image" src="https://github.com/user-attachments/assets/be943cf2-f015-4152-ac51-b64af2421700" />
+  
+  When clicking on labwares, specifics like liquid type and liquid volume are shown.\
+  <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
+</details>
 
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
 
-Nunc wellplate on the heater-shaker with the universal flat plate at C1
-
-Opentrons Reservoir at D1
-
-Tuberacks at D2 and D3
-
-- Liquid: Red = standards; yellow = unknowns; blue = reagent B; green = reagent A
-- Tipracks: Purple = 50 uL; Yellow = 200 uL
 ### Procedure
-1. Place standards' tubes in the tuberack in deck space D2 in columns (verticle) of preferred order. Place unknowns' tubes in the tuberack in deck space D3 in column(s) of preferred order.
-2. Dispense the necessary amount of reagent A and B into the reservoir and tube respectively.
-3. Start automation protocol.
-4. Dispenses 10 µL of BSA standards into column 1 (and column 2-3 if there's replicates)
-5. Dispenses 10 µL of BSA unknowns into the column next to the standards (replicates will be placed next to the first replicates row)
-6. Combine reagent A and reagent B in a 50:1 ratio, then mix to create the working reagent.
-7. Dispense 200 µL of working reagent with the 8-channel pipette into each row where there is standards and unknowns.
-8. Heater-shaker will shake the well-plate at 825rpm for 25 seconds to mix well.
-9. Protocol will set a timer for 5 minutes.
-10. When timer is up, protocol will display completion so user can bring the wellplate to the plate reader for absorbance reading. 
+For automation prep and protocol procedures follow the instructions [here](Insert protocols.io link here)
 
 ## Labware Required
 This protocol requires the following custom labware:
@@ -99,8 +89,8 @@ This protocol requires the following custom labware:
 
 ## Protocol Validations
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
-- Water color validation:
-  - Using 10% glycerol, do serial dilution with red watercolor as standards.
+- Food coloring validation:
+  - Using 10% glycerol, do serial dilution with red food coloring as standards.
   - Add red coloring in reagent B, and use 10% glycerol as reagent A.
   - Do an automated and manual run of the protocol.
   - Compare the standard curve of the two, the slopes of both should be close when using the same standards.
