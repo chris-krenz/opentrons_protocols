@@ -23,7 +23,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - **Neutralize**: step to precipitate gDNA, proteins and other debris, while keeping plasmid DNA suspended in the lysate.
 - **Lysate Clearing**: step to remove the precipitated debris from the lysate. 
 - **Bind**: capturing plasmid DNA and seperating it from the supernatant. 
-- **Wash**: wash the bound DNA with 80% ethanol to remove remaining contaminants and impurities.
+- **Wash**: wash the bound DNA to remove remaining contaminants and impurities.
 - **Elute**: the purified plasmid DNA is released by adding an elution buffer,  turning it into a solution called the eluate to be used for further downstream applications. 
 
 </details>
@@ -33,7 +33,7 @@ Here describes the keyword in each step of plasmid DNA isolation:
 - Hardware:
   - Heater shaker with the universal flat plate
   - Flex gripper
-  - Flex HEPA unit
+  - Flex HEPA/UV module
 - Pipette: Flex 8-Channel 1000 uL.
 
 All labwares and consumable materials are listed [here](link to protocols.io materials sections here)
