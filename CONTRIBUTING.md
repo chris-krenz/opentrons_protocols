@@ -41,7 +41,7 @@ Working/final protocols should go in `protocols/OT-Flex/`.
 ## README.md Guidelines
 Format:
 - Overview: Basic information about the protocol, including the kit. 
-- Protocol Hardwares: hardware used by the protocol, like modules, pipettes, adapters, etc. and a link to the protocols.io materials section. 
+- Protocol Hardwares: hardware used by the robot, like modules, adapters for the modules, pipettes, etc. and a link to the protocols.io materials section. 
 - Protocol Summary
   - Robot Set-up: How to use and setup the protocol using the .py file and the Opentrons app.
   - Procedure: Link to protocols.io protocol procedure
