@@ -6,7 +6,8 @@
 ## Overview
 The protocol performs automated Promega miniprep from a 96 well deep wellplate using 
 the Opentrons Flex robot with an 1000uL 8-channel. The protocol is 
-flexible, allowing inputs for different numbers of bacteria cell pellet, up to 24 wells in multiples of 8. 
+flexible, allowing inputs for different numbers of bacteria cell pellet, up to 32 wells in multiples of 8. 
+- Keep in mind when there's 32 wells, the protocol will prompt for a tip refill in the middle of the protocol.  
 
 The code is now flexible for choosing manual or automated resuspension steps.
 - Manual resuspension is good for: users who pellets and resuspend bacterias in tubes to transfer to deep wellplates
@@ -44,10 +45,6 @@ All labwares and consumable materials are listed [here](link to protocols.io mat
   Heater-Shaker universal flat plate
 
   <img width="386" height="217" alt="image" src="https://github.com/user-attachments/assets/6d3ab0c3-4660-4dc9-8cd2-24c47ffe4edb" />
-
-  Magnetic block V1
-
-  <img width="320" height="180" alt="image" src="https://github.com/user-attachments/assets/5764cd49-03ae-450f-b735-6897b0fbd07a" />
 
 </details>
 
@@ -92,6 +89,7 @@ This protocol requires the following custom labware:
 - Validate in Nanodrop
 
 ## Protocol Updates
+- Ver. 6: Allow for up to 32 wells of bacteria cell culture, and changed aspirate and dispense height to allow for less dead volume to be used. 
 - Ver. 5: Change code to use suitable tips for different volumes, flexible for two setup (manual resuspension or automated resuspension steps), added a second 200 uL tiprack for cell pellet amount above 8 wells, and changed all microplates to the deep wellplate.
   - Increased accuracy, flexible for people who does not have/want to use a wellplate centrifuge, add more tipracks to avoid running out of tips mid protocol, and changed wellplates to further match up with the protocol.io protocol. 
 - Ver. 4: Changed code based on protocol.io promega miniprep protocol, as protocol.io protocol has been tested to work automated on the Hamilton. 
