@@ -56,7 +56,7 @@ All labwares and consumable materials are listed [here](link to protocols.io mat
 Before automation, download the promega_miniprep.py file, edit the parameter to fit your needs, and import it into the Opentrons software.\
 Set up the Flex accordingly to what the software shows. 
 >[!IMPORTANT]
->The liquid amount displayed is always the bare minimum, perfect liquid dispersion may not always be guaranteed, it is suggested to add an extra reagent to prevent bubbles everytime.
+>The liquid volume displayed is the minimum, perfect liquid dispersion may not always be guaranteed, it is suggested to add an extra reagent to prevent bubbles everytime.
 
 <details>
 <summary>Click here for further information about how to set-up for your first time</summary>
