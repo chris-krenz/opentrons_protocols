@@ -7,7 +7,7 @@
 The protocol performs automated Promega miniprep from a 96 well deep wellplate using 
 the Opentrons Flex robot with an 1000uL 8-channel. The protocol is 
 flexible, allowing inputs for different numbers of bacteria cell pellet, up to 32 wells in multiples of 8. 
-- Keep in mind when there's 32 wells, the protocol will prompt for a tip refill in the middle of the protocol.  
+- Note: When there's more than 24 wells, the protocol will prompt for a tip refill in the middle of the protocol.  
 
 The code is now flexible for choosing manual or automated resuspension steps.
 - Manual resuspension is good for: users who pellets and resuspend bacterias in tubes to transfer to deep wellplates
