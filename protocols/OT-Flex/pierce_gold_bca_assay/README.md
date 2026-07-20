@@ -28,7 +28,7 @@ The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates o
 - Hardware: Heater shaker with the universal flat plate
 - Pipette: Flex 8-Channel 1000 µL and 1-Channel 50 µL
 
-All labwares and consumable materials are listed [here](link to protocols.io materials sections here)
+All labwares and consumable materials are listed [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
 
 <details>
 <summary>Click here for materials reference image</summary>
@@ -66,7 +66,7 @@ Set up the Flex accordingly to what the software shows.
 Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
 
 ### Procedure
-For automation prep and protocol procedures follow the instructions [here](Insert protocols.io link here)
+For automation prep and protocol procedures follow the instructions [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
 
 ## Labware Required
 This protocol requires the following custom labware:
@@ -81,7 +81,7 @@ This protocol requires the following custom labware:
   - Do an automated and manual run of the protocol.
   - Compare the standard curve of the two, the slopes of both should be close when using the same standards.
 
-Calculator: [Standard curve and unknown concentration calculator](https://docs.google.com/spreadsheets/d/1jOXZw7FV0UNM_kc2e0GPSbrMJrRpSWRYMfU1zicM1bA/edit?usp=sharing)
+Calculator for BCA assay is in protocols.io.
   </details>
 
 
