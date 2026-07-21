@@ -6,10 +6,10 @@ from opentrons.protocol_api import SINGLE, ALL
 # Edit the numbers here to suit your needs
 # Note this code can accept up to 24 unknowns and up to 3 replicates
 standards_number = 8
-unknown_number = 4
+unknown_number = 17
 
 # Supports up to 3 replicates
-replicates_number = 1
+replicates_number = 3
 
 volume_reagent_per_sample = 200  # uL
 
@@ -80,7 +80,7 @@ def run(protocol: protocol_api.ProtocolContext):
     tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'A2')
 
     # Load pipettes
-    p1000_single = protocol.load_instrument(
+    p50_single = protocol.load_instrument(
         'flex_1channel_50',
         mount=pipette_1channel_50_location,
         tip_racks= [tiprack50]
@@ -161,15 +161,15 @@ def run(protocol: protocol_api.ProtocolContext):
     
     protocol.comment('Transferring 10 uL of BSA standards to well plate')
 
-    p1000_single.flow_rate.aspirate = 15
-    p1000_single.flow_rate.dispense = 10
+    p50_single.flow_rate.aspirate = 15
+    p50_single.flow_rate.dispense = 10
 
     # Get the replicate destination columns (columns 2, 3, 4, etc.)
     for idx, source in enumerate(standard_sources):
         destinations = get_destination_wells(idx, start_column=0, columns_per_replicate=1)
 
-        p1000_single.pick_up_tip(tiprack50)
-        p1000_single.distribute(
+        p50_single.pick_up_tip(tiprack50)
+        p50_single.distribute(
             10,
             source.bottom(1),
             destinations,
@@ -177,7 +177,7 @@ def run(protocol: protocol_api.ProtocolContext):
             touch_tip = True,
             disposal_volume = 0
         )
-        p1000_single.drop_tip()
+        p50_single.drop_tip()
 
     # ===== STEP 2: Microplate Procedure - Transferring Unknowns =============================================
 
@@ -189,8 +189,8 @@ def run(protocol: protocol_api.ProtocolContext):
                                              columns_per_replicate=math.ceil(unknown_number / 8)
                                              )
 
-        p1000_single.pick_up_tip(tiprack50)
-        p1000_single.distribute(
+        p50_single.pick_up_tip(tiprack50)
+        p50_single.distribute(
             10,
             source.bottom(1),
             destinations,
@@ -198,7 +198,7 @@ def run(protocol: protocol_api.ProtocolContext):
             touch_tip = True,
             disposal_volume = 0
         )
-        p1000_single.drop_tip()
+        p50_single.drop_tip()
 
     # ===== STEP 3: Prepare BCA Working Reagent ===============================================================
     reagent_a_volume = total_reagent  # µL
@@ -208,7 +208,6 @@ def run(protocol: protocol_api.ProtocolContext):
 
     # Transfer Reagent A to reservoir A2
     p1000_multi.pick_up_tip()
-    p1000_single.pick_up_tip()
 
     p1000_multi.flow_rate.aspirate = 200
     p1000_multi.flow_rate.dispense = 100
@@ -224,32 +223,72 @@ def run(protocol: protocol_api.ProtocolContext):
     )
 
     # Transfer Reagent B to reservoir A2
-    reagent_b_transfer = []
-
-    counts = reagent_b_volume // 50
-    remainder = reagent_b_volume % 50
-
-    for i in range(int(counts)):
-        reagent_b_transfer.append(50)
-
-    if remainder > 0:
-        reagent_b_transfer.append(remainder)
-
-
     protocol.comment(f'Transferring {round(reagent_b_volume)} uL of Reagent B to reservoir A2.')
-    # Reagent B is uniformly distributed across reservoir well A2
-    for count in reagent_b_transfer:
-        res = reservoir['A2'].bottom(5)
-        res_position = [res.move(Point(y=10 * i)) for i in range(-3, 4)]
-        p1000_single.aspirate(count, standard_tube_rack['D6'])
-        for position in res_position:
-            p1000_single.dispense((count / 7), position)
-        p1000_single.blow_out(reservoir['A2'].top())
 
-    # aspirate and dispense once slowly dispense all reagent B. 
-    p1000_single.flow_rate.aspirate = 30
-    p1000_single.flow_rate.dispense = 15
-    p1000_single.mix(1, 50)
+    if reagent_b_volume > 150:
+        p1000_multi.drop_tip()
+
+        reagent_b_transfer = []
+
+        counts = reagent_b_volume // 200
+        remainder = reagent_b_volume % 200
+
+        for i in range(int(counts)):
+            reagent_b_transfer.append(200)
+
+        if remainder > 0:
+            reagent_b_transfer.append(remainder)
+
+        p1000_multi.configure_nozzle_layout(
+            style=SINGLE,
+            start='H1',
+            tip_racks = tiprack200
+        )
+
+        p1000_multi.pick_up_tip(tiprack200[0]['A12'])
+        # Reagent B is uniformly distributed across reservoir well A2
+        for count in reagent_b_transfer:
+
+            res = reservoir['A2'].bottom(5)
+            res_position = [res.move(Point(y=10 * i)) for i in range(-3, 4)]
+            p1000_multi.aspirate(count, standard_tube_rack['D6'])
+            for position in res_position:
+                p1000_multi.dispense((count / 7), position)
+            p1000_multi.blow_out(reservoir['A2'].top())
+        
+        p1000_multi.drop_tip()
+
+        p1000_multi.configure_nozzle_layout(
+            style= ALL,
+            tip_racks = tiprack200
+        )
+
+        p1000_multi.pick_up_tip()
+
+    else:
+        # Reagent B is uniformly distributed across reservoir well A2
+        p50_single.pick_up_tip()
+
+        reagent_b_transfer = []
+
+        counts = reagent_b_volume // 50
+        remainder = reagent_b_volume % 50
+
+        for i in range(int(counts)):
+            reagent_b_transfer.append(50)
+
+        if remainder > 0:
+            reagent_b_transfer.append(remainder)
+        
+        for count in reagent_b_transfer:
+            res = reservoir['A2'].bottom(5)
+            res_position = [res.move(Point(y=10 * i)) for i in range(-3, 4)]
+            p50_single.aspirate(count, standard_tube_rack['D6'])
+            for position in res_position:
+                p50_single.dispense((count / 7), position)
+            p50_single.blow_out(reservoir['A2'].top())
+        p50_single.drop_tip()
+
 
     # Mixing reagent A and B
     p1000_multi.mix(1, 200, reservoir['A2'].bottom(2))
@@ -258,7 +297,6 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_multi.mix(1, 200 * 0.5, reservoir['A2'].bottom(4))
     p1000_multi.blow_out(reservoir['A2'].top())
 
-    p1000_single.drop_tip()
     p1000_multi.drop_tip()
 
     # ===== STEP 4: Adding Working Reagent to Standards ============================================================
@@ -358,12 +396,20 @@ def run(protocol: protocol_api.ProtocolContext):
 
         # Handle partial column if it is only 1 well for that column
         if remaining_wells_in_replicate == 1:
+            end_nozzle = nozzle_map[remaining_wells_in_replicate]
+
+            p1000_multi.configure_nozzle_layout(
+                style=SINGLE,
+                start='H1',
+                tip_racks= tiprack200
+            )
+
             # Calculate destination column and target well
             dest_col = replicate_start_col + full_columns_in_replicate
             target_row = chr(ord('A') + remaining_wells_in_replicate - 1)
             target_well = f"{target_row}{dest_col + 1}"
 
-            p1000_single.transfer(
+            p1000_multi.transfer(
                 200,
                 reservoir['A2'].bottom(-0.20),
                 hs_plate[target_well],
