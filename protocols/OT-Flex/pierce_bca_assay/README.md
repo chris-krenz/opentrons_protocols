@@ -1,7 +1,7 @@
 > [!WARNING]
 > New version not validated.
 
-# Pierce Dilution-Free Rapid Gold BCA Protein Assay Kit (OT-Flex)
+# Pierce™ BCA Protein Assay Kit (OT-Flex)
 
 ## Overview
 This protocol performs automated Pierce BCA assay kit from a 96 wellplate using the Opentrons Flex robot with an 1000uL 8-channel and 50 uL 1-channel  pipette. The protocol is flexible, allowing inputs for different numbers of BSA unknowns and different numbers of replicates.  
