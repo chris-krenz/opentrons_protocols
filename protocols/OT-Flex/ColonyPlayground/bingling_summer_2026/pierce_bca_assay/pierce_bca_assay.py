@@ -57,6 +57,13 @@ def run(protocol: protocol_api.ProtocolContext):
     standard_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D2')
     unknown_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D3')
 
+    # load lid stack
+    lid = protocol.load_lid_stack(
+        load_name="opentrons_tough_universal_lid",
+        location="C2",
+        quantity=1
+    )
+
     # Load heater shaker adapter
     hs_adapter = heater_shaker.load_adapter("opentrons_universal_flat_adapter")
 
@@ -369,11 +376,17 @@ def run(protocol: protocol_api.ProtocolContext):
     # Stop shaking
     heater_shaker.deactivate_shaker()
 
-    heater_shaker.set_and_wait_for_temperature(celsius=37)
-    protocol.delay(minutes=30)
-
     # Open heater shaker latch
     heater_shaker.open_labware_latch()
+
+    protocol.move_lid(
+        source_location=lid,
+        new_location=hs_plate,
+        use_gripper=True
+    )
+
+    heater_shaker.set_and_wait_for_temperature(celsius=37)
+    protocol.delay(minutes=30)
 
     protocol.comment(
         'BCA Protein Assay protocol complete, please send wellplate to platereader immediately to read at 480nm. You have 20 seconds')
