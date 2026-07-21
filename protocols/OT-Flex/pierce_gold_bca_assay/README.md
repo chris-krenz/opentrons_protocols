@@ -5,6 +5,7 @@
 
 ## Overview
 This protocol performs automated Pierce Gold BCA assay kit from a 96 wellplate using the Opentrons Flex robot with an 1000uL 8-channel and 50 uL 1-channel  pipette. The protocol is flexible, allowing inputs for different numbers of BSA unknowns and different numbers of replicates. 
+This kit has a working range of BSA for 20 to 10,000 μg/mL
 
 The code can accept up to 24 unknowns samples of protein for 1 to 2 replicates or accept up to 18 unknowns for 3 replicates.
 
