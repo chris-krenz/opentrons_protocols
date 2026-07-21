@@ -4,13 +4,12 @@ from opentrons.protocol_api import PARTIAL_COLUMN, ALL
 from opentrons.protocol_api import SINGLE, ALL
 
 # Edit the numbers here to suit your needs
-# Note this code can accept up to 24 unknowns and up to 2 replicates
-# or accpet up to 18 unknowns and 3 replicates
+# Note this code can accept up to 24 unknowns and up to 3 replicates
 standards_number = 8
 unknown_number = 4
 
-# Supports up to 3 replicates depending on number of unknowns
-replicates_number = 1 
+# Supports up to 3 replicates
+replicates_number = 1
 
 volume_reagent_per_sample = 200  # uL
 
@@ -67,19 +66,29 @@ def run(protocol: protocol_api.ProtocolContext):
     )
 
     # Load tip racks for all operations
-    tiprack200 = protocol.load_labware('opentrons_flex_96_tiprack_200ul', 'B3')
-    tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'B2')
+    if unknown_number > 16 and replicates_number == 3:
+        tiprack200_slots = ["C2","B3"]
+        tiprack200 = [protocol.load_labware(load_name="opentrons_flex_96_tiprack_200ul", location=slot) 
+                    for slot in tiprack200_slots
+                    ]
+    else: 
+        tiprack200_slots = ["B3"]
+        tiprack200 = [protocol.load_labware(load_name="opentrons_flex_96_tiprack_200ul", location=slot) 
+                    for slot in tiprack200_slots
+                    ]
+
+    tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'A2')
 
     # Load pipettes
     p1000_single = protocol.load_instrument(
         'flex_1channel_50',
         mount=pipette_1channel_50_location,
-        tip_racks=[tiprack50]
+        tip_racks= [tiprack50]
     )
     p1000_multi = protocol.load_instrument(
         'flex_8channel_1000',
         mount=pipette_8channel_1000_location,
-        tip_racks=[tiprack200]
+        tip_racks= tiprack200
     )
 
     # Define liquids
@@ -149,31 +158,30 @@ def run(protocol: protocol_api.ProtocolContext):
     heater_shaker.close_labware_latch()
 
     # ===== STEP 1: Microplate Procedure - Transferring Standards =============================================
-    protocol.comment('Transferring BSA standards to well plate')
+    
+    protocol.comment('Transferring 10 uL of BSA standards to well plate')
 
     p1000_single.flow_rate.aspirate = 15
-    p1000_single.flow_rate.dispense = 15
+    p1000_single.flow_rate.dispense = 10
 
     # Get the replicate destination columns (columns 2, 3, 4, etc.)
     for idx, source in enumerate(standard_sources):
         destinations = get_destination_wells(idx, start_column=0, columns_per_replicate=1)
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(1, 50, source)  # Mix at source before aspirating
-        p1000_single.blow_out(source.top())
-        p1000_single.aspirate(10 * replicates_number, source.bottom(1))  # Single source (will be stretched to match destinations)
-
-        for dest in destinations:  # Dispensing to list of destinations
-            p1000_single.dispense(10, dest)
-            p1000_single.blow_out(dest.top())
-            p1000_single.touch_tip()
-            p1000_single.blow_out(dest.top())
-
+        p1000_single.distribute(
+            10,
+            source.bottom(1),
+            destinations,
+            new_tip = 'never',
+            touch_tip = True,
+            disposal_volume = 0
+        )
         p1000_single.drop_tip()
 
     # ===== STEP 2: Microplate Procedure - Transferring Unknowns =============================================
 
-    protocol.comment('Transferring unknown samples to well plate')
+    protocol.comment('Transferring 10uL of unknown samples to well plate')
 
     for idx, source in enumerate(unknown_sources):
         destinations = get_destination_wells(idx,
@@ -182,16 +190,14 @@ def run(protocol: protocol_api.ProtocolContext):
                                              )
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(1, 50, source)  # Mix at source before aspirating
-        p1000_single.blow_out(source.top())
-        p1000_single.aspirate(10 * replicates_number, source.bottom(1))  # Single source (will be stretched to match destinations)
-
-        for dest in destinations:  # Dispensing to list of destinations
-            p1000_single.dispense(10, dest)
-            p1000_single.blow_out(dest.top())
-            p1000_single.touch_tip()
-            p1000_single.blow_out(dest.top())
-
+        p1000_single.distribute(
+            10,
+            source.bottom(1),
+            destinations,
+            new_tip = 'never',
+            touch_tip = True,
+            disposal_volume = 0
+        )
         p1000_single.drop_tip()
 
     # ===== STEP 3: Prepare BCA Working Reagent ===============================================================
@@ -206,6 +212,8 @@ def run(protocol: protocol_api.ProtocolContext):
 
     p1000_multi.flow_rate.aspirate = 200
     p1000_multi.flow_rate.dispense = 100
+
+    protocol.comment(f'Transferring {round(reagent_a_volume)} uL of Reagent A to reservoir A2.')
 
     p1000_multi.transfer(
         reagent_a_volume / 8,
@@ -227,6 +235,8 @@ def run(protocol: protocol_api.ProtocolContext):
     if remainder > 0:
         reagent_b_transfer.append(remainder)
 
+
+    protocol.comment(f'Transferring {round(reagent_b_volume)} uL of Reagent B to reservoir A2.')
     # Reagent B is uniformly distributed across reservoir well A2
     for count in reagent_b_transfer:
         res = reservoir['A2'].bottom(5)
@@ -235,6 +245,11 @@ def run(protocol: protocol_api.ProtocolContext):
         for position in res_position:
             p1000_single.dispense((count / 7), position)
         p1000_single.blow_out(reservoir['A2'].top())
+
+    # aspirate and dispense once slowly dispense all reagent B. 
+    p1000_single.flow_rate.aspirate = 30
+    p1000_single.flow_rate.dispense = 15
+    p1000_single.mix(1, 50)
 
     # Mixing reagent A and B
     p1000_multi.mix(1, 200, reservoir['A2'].bottom(2))
@@ -247,7 +262,7 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_multi.drop_tip()
 
     # ===== STEP 4: Adding Working Reagent to Standards ============================================================
-    protocol.comment('Adding working reagent to standards')
+
     p1000_multi.pick_up_tip()
 
     p1000_multi.aspirate(200, reservoir['A2'])
@@ -256,6 +271,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
     p1000_multi.drop_tip()
 
+    protocol.comment('Transferring 200 uL of working reagent to standard wells.')
     if replicates_number > 1:
         dest_columns_WR = hs_plate.columns()[1:replicates_number]
         p1000_multi.transfer(
@@ -269,7 +285,6 @@ def run(protocol: protocol_api.ProtocolContext):
         )
 
     # ===== STEP 5: Adding Working Reagent to Unknowns =================================================================
-
     # Calculate columns needed for unknowns
     columns_per_replicate = math.ceil(unknown_number / 8)
     total_unknown_columns = columns_per_replicate * replicates_number
@@ -283,7 +298,7 @@ def run(protocol: protocol_api.ProtocolContext):
         5: 'D1', 6: 'C1', 7: 'B1', 8: 'A1'
     }
 
-    protocol.comment('Adding working reagent to unknown wells')
+    protocol.comment('Transferring 200 uL of working reagent to unknown wells.')
 
     # Calculate how unknowns are distributed
     unknown_start_column = replicates_number
@@ -300,7 +315,7 @@ def run(protocol: protocol_api.ProtocolContext):
         if full_columns_in_replicate > 0:
             p1000_multi.configure_nozzle_layout(
                 style=ALL,
-                tip_racks=[tiprack200]
+                tip_racks= tiprack200
             )
 
             for col_offset in range(full_columns_in_replicate):
@@ -323,7 +338,7 @@ def run(protocol: protocol_api.ProtocolContext):
                 style=PARTIAL_COLUMN,
                 start='H1',
                 end=end_nozzle,
-                tip_racks=[tiprack200]
+                tip_racks= tiprack200
             )
 
             # Calculate destination column and target well
@@ -361,7 +376,7 @@ def run(protocol: protocol_api.ProtocolContext):
     protocol.comment('Working reagent distribution complete')
 
     # ===== STEP 6: Shake ===============================================================================================
-    protocol.comment("Shaking at 825 rpm")
+    protocol.comment("Shaking at 825 rpm for 25 seconds")
     heater_shaker.set_and_wait_for_shake_speed(825)  # Set rpm
     protocol.delay(seconds=25)  # Shake for 25 seconds
 
