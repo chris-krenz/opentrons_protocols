@@ -38,9 +38,9 @@ Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
 Place shared/draft work in folders in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username, semester, and year (e.g., `jsmith_fall_2025`).  
 Working/final protocols should go in `protocols/OT-Flex/`.
 
-## README.md Guidelines
+## README.md Format and Guidelines
 Format:
-- Overview: Basic information about the protocol, including the kit. 
+- Overview: Basic information about the protocol, and the kits use if applicable. 
 - Protocol Hardwares: hardware attached to robot itself, like modules, module adapters, pipettes, etc. and a link to the protocols.io materials section. 
 - Protocol Summary
   - Robot Set-up: How to use and setup the protocol using the .py file and the Opentrons app.
