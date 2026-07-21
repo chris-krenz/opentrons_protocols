@@ -29,8 +29,7 @@ Each protocol folder under `protocols/OT-Flex/` should include:
 Each protocol folder under `protocols/OT-Flex/ColonyPlayground/' should include:
 - A `.py` protocol file
 - A `README.md`
-  - Link to the 'README.md' for the working/final protocol in the `protocols/OT-Flex/` folder.
-  - Custom labware (if specific to that protocol) can be put under the working/final protocol folder. 
+  - Link to the 'README.md' for the protocol in the `protocols/OT-Flex/` folder.
 - Input files (e.g., `.xlsx`), if needed
 
 **Robotics Colony Members:**
@@ -43,7 +42,7 @@ Work chosen to be developed into a working/validated protocol should go in `prot
 Format:
 - Overview: Basic information about the protocol, and the kits use if applicable.
   - If protocol is under progress or not validated, add a warning label at the top stating so. 
-- Protocol Hardwares: hardware attached to robot itself, like modules, module adapters, pipettes, etc. and a link to the protocols.io materials section. 
+- Protocol Hardwares: List hardware attached to robot used, like modules, module adapters, pipettes, etc. and a link to the protocols.io materials section. 
 - Protocol Summary
   - Robot Set-up: How to use and setup the protocol using the .py file and the Opentrons app.
   - Procedure: Link to protocols.io protocol procedure
