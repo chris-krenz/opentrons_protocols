@@ -64,7 +64,8 @@ Set up the Flex accordingly to what the software shows.
   <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
 </details>
 
-Example Set Up image for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6ed72e8b-261a-4152-9853-1768faf6d961" />
+Example Set Up for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6aa10b0c-dbd5-4398-a208-318e86ddb5c3" />
+
 
 ### Procedure
 For automation prep and protocol procedures follow the instructions [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
