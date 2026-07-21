@@ -88,7 +88,7 @@ Calculator for BCA assay is in protocols.io.
 
 
 ## Protocol Updates
-- Ver. 13: Increased the amount of unknown samples allowed for 3 replicates, and added an extra rack of 200 uL tips for when unknown number exceeds 16 and when replicates equals 3 to prevent running out of tips. 
+- Ver. 13: Increased the amount of unknown samples allowed for 3 replicates, and added an extra rack of 200 uL tips for when unknown number exceeds 16 and when replicates equals 3 to prevent running out of tips. When reagent B volume exceeds 150 uL, switches to a 200 uL tip using the 8-channel pipette for quicker transfer (wastes 8 more tips, but much more efficient when reagent B volume is high). 
 - Ver. 12: Includes flexible input for changing module locations, and changing pipette locations (left or right mount) to further simplify the process especially for new users. 
 - Ver. 11: Includes flexible input for v-bottom well or diamond-bottom wells, accessible for users with different labwares. 
 - Ver. 10: Changed flow rate to be even slower, and added correct dead volume for working reagent. Slower flow rate results in more accurate pipetting, and the correct dead volume reduces liquid waste.
