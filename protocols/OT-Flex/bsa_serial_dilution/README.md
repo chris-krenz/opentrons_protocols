@@ -1,5 +1,5 @@
 > [!WARNING]
-> New version not tested in actual protocol
+> New version not tested in actual protocol, and no protocols.io exist for this
 
 # BSA Dilutions in Duplicates (OT-Flex)
 
@@ -11,7 +11,7 @@ The protocol performs automated serial dilutions of BSA in 2 duplicates using th
 ## Protocol Materials
 - Robot: Opentrons Flex
 - Pipette: Flex 1-Channel 1000 uL
-- Tips:One 50 uL tip rack, one 200 uL tip rack and one 1000 uL tip rack
+- Tips: One 50 uL tip rack, one 200 uL tip rack and one 1000 uL tip rack
 - Reservoir: USA scientic 12 well reservoir 22 mL
 - Others: One opentrons 24 tuberack holder, and seven 1.5 mL snapcap tubes. 
 
