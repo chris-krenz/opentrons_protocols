@@ -89,6 +89,7 @@ This protocol requires the following custom labware:
 - Validate in Nanodrop
 
 ## Protocol Updates
+- Ver. 7: Dynamic mixing for resuspending cell pellets at different xyz coordinates for thorough resuspension. 
 - Ver. 6: Allow for up to 32 wells of bacteria cell culture, and changed aspirate and dispense height to allow for less dead volume to be used. 
 - Ver. 5: Change code to use suitable tips for different volumes, flexible for two setup (manual resuspension or automated resuspension steps), added a second 200 uL tiprack for cell pellet amount above 8 wells, and changed all microplates to the deep wellplate.
   - Increased accuracy, flexible for people who does not have/want to use a wellplate centrifuge, add more tipracks to avoid running out of tips mid protocol, and changed wellplates to further match up with the protocol.io protocol. 
