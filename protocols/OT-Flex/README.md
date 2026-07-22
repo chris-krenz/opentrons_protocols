@@ -1,4 +1,4 @@
-# New Opentrons Protocols
+# Scripting New Opentrons Protocols
 ## Creating New Scripts
 The Opentrons Flex runned using the Opentrons App with protocols coded in Python with the Opentrons Python API. For full documentation of the Opentrons Python API and its function please see [here](https://docs.opentrons.com/python-api/).  
 
