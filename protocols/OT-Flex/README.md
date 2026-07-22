@@ -7,10 +7,12 @@ For protocols that have parameters, account for making the Python script flexibl
 1. Read over the manual protocols.io (or manual if protocols.io doesn't exist) and understand the experiment.
    
 2. List the materials and hardware needed for the protocols, match and replace labware if needed. Write down API names for each materials and hardware.
+   - API names for labwares verified for Opentrons can be found in the 'Labwares' tab in the Opentrons app.
+   - If your labware is not found, please check Opentrons [custom labware creator](https://docs.opentrons.com/flex/labware/definitions/#custom-labware-creator).
    
-3. Before writing the protocol, begin by adding the imports, metadata, and requirements.
+4. Before writing the protocol, begin by adding the imports, metadata, and requirements.
       -  You can also use the opentrons official [Protocol Designer](https://designer.opentrons.com/?_gl=1*bagoc2*_ga*MTAyMjAwODcyMS4xNzc0MDM2NzU0*_ga_66HK7MC5D7*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMA..*_gcl_au*OTUzMDE4Nzc5LjE3ODE4MTgxMTA.*_ga_GNSMNLW4RY*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMTI2MTg1MjkzMA) to create a base script to then edit base off needs.
-4. Begin formatting the script by adding protocol comments keep track of steps (action, volume, location and destination)  
+5. Begin formatting the script by adding protocol comments keep track of steps (action, volume, location and destination)  
    Example:
 ```ruby
 from opentrons import protocol_api
