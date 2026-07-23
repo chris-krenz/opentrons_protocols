@@ -1,5 +1,5 @@
 > [!WARNING]
-> New version not validated.
+> Not validated.
 
 # Pierce™ BCA Protein Assay Kit (OT-Flex)
 
