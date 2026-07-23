@@ -17,7 +17,6 @@ pipette_8channel_1000_location = 'right'
 
 metadata = {
     'protocolName': 'Promega Miniprep Draft',
-    'author': 'Bing',
     'description': 'Automated miniprep protocol using the promega magnesil kit'
 }
 
