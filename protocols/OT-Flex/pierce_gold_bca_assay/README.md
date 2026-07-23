@@ -1,43 +1,35 @@
 > [!WARNING]
-> Not validated. 
+> Validated in food coloring test, not with actual reagents
 
-# Wizard® MagneSil® Plasmid Purification System (OT-Flex)
+# Pierce Dilution-Free Rapid Gold BCA Protein Assay Kit (OT-Flex)
 
 ## Overview
-The protocol performs automated Promega miniprep from a 96-well deep well plate using 
-the Opentrons Flex robot with a 1000 uL 8-channel pipette. The protocol is 
-flexible, allowing inputs for different numbers of bacterial cell pellets, up to 32 wells in multiples of 8. 
-- Note: When there's more than 24 wells, the protocol will prompt for a tip refill in the middle of the protocol.  
+This protocol performs an automated Pierce Gold BCA assay kit run from a 96-well plate using the Opentrons Flex robot with a 1000 uL 8-channel and 50 uL 1-channel pipette. The protocol is flexible, allowing inputs for different numbers of BSA unknowns and different numbers of replicates. 
+This kit has a working range of BSA from 20 to 10,000 μg/mL.
 
-The code is now flexible for choosing manual or automated resuspension steps.
-- Manual resuspension is good for: users who pellet and resuspend bacteria in tubes to transfer to deep well plates
-- Automated resuspension is good for: users who pellet bacteria directly in the deep well plates. 
+The code can accept up to 24 unknown samples and up to 3 replicates.
 
 <details>
-<summary>Click here for Promega Miniprep Information</summary>
+<summary>Click here for Pierce Gold BCA Assay Kit Information</summary>
+  
+  The Pierce Gold BCA Assay kit itself is for quantification of proteins in an unknown sample. The kit provides 8 standards with known protein concentrations. 
+  
+  The unknowns and standards will then be mixed with a working reagent created by mixing reagent A and reagent B provided by the kit. 
+  
+  The mixture will be left to incubate for 5 minutes at room temperature, and afterwards read in a plate reader at a wavelength of 480 nm. 
 
-The Promega miniprep is for rapid isolation of plasmid DNA in a multiwell format using paramagnetic particles for lysate clearing and DNA capture. The use of paramagnetic particles skips the need for centrifuging, making it ideal for automation. 
+  The relationship between protein concentration and absorbance is nearly linear. 
+  </details>
 
-The following describes the key steps of plasmid DNA isolation:
-- **Resuspension**: cell pellet is suspended in a resuspension buffer to make the pellet a uniform, liquid suspension. 
-- **Lysis**: step to release plasmid DNA from the cell into the liquid, creating a lysate solution.
-- **Neutralize**: step to precipitate gDNA, proteins and other debris, while keeping plasmid DNA suspended in the lysate.
-- **Lysate Clearing**: step to remove the precipitated debris from the lysate. 
-- **Bind**: capturing plasmid DNA and separating it from the supernatant. 
-- **Wash**: wash the bound DNA to remove remaining contaminants and impurities.
-- **Elute**: the purified plasmid DNA is released by adding an elution buffer, turning it into a solution called the eluate to be used for further downstream applications. 
-
-</details>
 
 ## Protocol Hardwares
+> [!NOTE]
+> Standards and unknowns are transferred to 1.5 mL snapcap tubes to make automation smoother
 - Robot: Opentrons Flex
-- Hardware:
-  - Heater shaker with the universal flat plate
-  - Flex gripper
-  - Flex HEPA/UV module
-- Pipette: Flex 8-Channel 1000 uL.
+- Hardware: Heater shaker with the universal flat plate
+- Pipette: Flex 8-Channel 1000 µL and 1-Channel 50 µL
 
-All labware and consumable materials are listed [here](link to protocols.io materials sections here)
+All labware and consumable materials are listed [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
 
 <details>
 <summary>Click here for materials reference image</summary>
@@ -48,12 +40,9 @@ All labware and consumable materials are listed [here](link to protocols.io mate
 
 </details>
 
-## Protocol Summary
->[!IMPORTANT]
->The labware is labelled as the Opentrons Magnetic Block V1, but the protocol uses a different magnet block. Offset for the flex gripper is calibrated in the code already, but please calibrate the pipette to the height of the labware on the different magnet block. 
-
-### Robot Set-up
-Before automation, download the promega_miniprep.py file, edit the parameters to fit your needs, and import it into the Opentrons software.\
+## Automated Protocol Summary
+### Setup
+Before automation, download the pierce_gold_bca_assay.py file, edit the parameters to fit your needs, and import it into the Opentrons software.\
 Set up the Flex according to what the software shows. 
 >[!IMPORTANT]
 >The liquid volume displayed is the minimum; perfect liquid dispersion may not always be guaranteed, so it is suggested to add extra reagent to prevent bubbles every time.
@@ -75,25 +64,39 @@ Set up the Flex according to what the software shows.
   <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
 </details>
 
-Example Setup image: <img width="559" height="450" alt="image" src="https://github.com/user-attachments/assets/38229e29-000f-410d-bc44-7f7f011a8887" />
+Example Setup for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6aa10b0c-dbd5-4398-a208-318e86ddb5c3" />
+
 
 ### Procedure
-For automation prep and protocol procedures follow the instructions [here](Insert protocols.io link here)
+For automation prep and protocol procedures follow the instructions [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
 
-## Labware Required (WIP)
+## Labware Required
 This protocol requires the following custom labware:
 
-[custom_labware/greiner_96_deep_wellplate_2000ul.json](https://github.com/bingling-w/opentrons_protocols/blob/29361d83081d2a70c38b127bdfcdc24d1e554025/custom_labware/greiner_96_deep_wellplate_2000ul.json)
+[custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
 
-## Protocol Validations (WIP)
-- Validate in Nanodrop
+## Protocol Validations
+- $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
+- Food coloring validation:
+  - Using 10% glycerol, do a serial dilution with red food coloring as standards.
+  - Add red coloring to reagent B, and use 10% glycerol as reagent A.
+  - Do an automated and manual run of the protocol.
+  - Compare the standard curves of the two; the slopes of both should be close when using the same standards.
+
+Calculator for BCA assay is in protocols.io.
+  </details>
+
 
 ## Protocol Updates
-- Ver. 7: Dynamic mixing for resuspending cell pellets at different xyz coordinates for thorough resuspension. 
-- Ver. 6: Allow for up to 32 wells of bacterial cell culture, and changed aspirate and dispense height to allow for less dead volume to be used. 
-- Ver. 5: Changed code to use suitable tips for different volumes, flexible for two setups (manual resuspension or automated resuspension steps), added a second 200 uL tip rack for cell pellet amounts above 8 wells, and changed all microplates to the deep well plate.
-  - Increased accuracy, flexible for people who do not have/want to use a well plate centrifuge, added more tip racks to avoid running out of tips mid-protocol, and changed well plates to further match up with the protocol.io protocol. 
-- Ver. 4: Changed code based on protocol.io Promega miniprep protocol, as the protocol.io protocol has been tested to work automated on the Hamilton. 
-- Ver. 3: Adjusted flex gripper offset to avoid liquid spilling when moving labware. 
-- Ver. 2: Added transfer with liquid class functions for volatile (80% ethanol) and viscous (50% glycerol) liquids. Also added flow rate adjustments for small volumes for more accurate pipetting. 
-- Ver. 1: Moved collection plate off deck when no longer needed to save deck space for the rest of the protocol.
+- Ver. 13: Increased the number of unknown samples allowed for 3 replicates, and added an extra rack of 200 uL tips for when the unknown number exceeds 16 and replicates equal 3, to prevent running out of tips. When reagent B volume exceeds 150 uL, switches to a 200 uL tip using the 8-channel pipette for quicker transfer (wastes 8 more tips, but is much more efficient when reagent B volume is high). 
+- Ver. 12: Includes flexible input for changing module locations and changing pipette locations (left or right mount) to further simplify the process, especially for new users. 
+- Ver. 11: Includes flexible input for v-bottom or diamond-bottom wells, accessible for users with different labware. 
+- Ver. 10: Changed flow rate to be even slower, and added correct dead volume for working reagent. Slower flow rate results in more accurate pipetting, and the correct dead volume reduces liquid waste.
+- Ver. 9: Code is made to blow out, touch tip, and blow out again to account for the viscosity of unknowns and standards, to prevent droplets. 
+- Ver. 8: Code is optimized to dispense and aspirate more slowly for more accurate pipetting. 
+- Ver. 7: Code is optimized to use small-volume pipette arms and tips to minimize the machine's % error.
+- Ver. 6: Code is optimized to use a partial nozzle setup for the 8-channel pipette when there is not a full column, to reduce reagent waste and tip waste.
+- Ver. 5: Code is made so the pipette goes to the very bottom of the reservoir to reduce dead volume. 
+- Ver. 4: Code is optimized to distribute reagent B uniformly across the reservoir, and mixed with reagent A at different heights for a more uniform mixture. 
+- Ver. 2: Code contains mixing and blow-out steps, though it does not mix as well because the tip can mix a maximum of 50 uL volumes. 
+- Ver. 1: Code is optimized for flexibility, allowing the user to change the protocol based on how many replicates and unknowns are necessary.
