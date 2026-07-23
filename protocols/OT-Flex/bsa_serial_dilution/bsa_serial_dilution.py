@@ -11,7 +11,6 @@ pipette_1channel_1000_location = 'right'
 
 metadata = {
     'protocolName': 'BSA Serial Dilution in Duplicate',
-    'author': 'Bing',
     'description': 'Serial dilution of BSA stock in duplicate in 1.5mL tubes with three calibrations'
 }
 
