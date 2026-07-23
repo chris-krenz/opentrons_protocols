@@ -26,7 +26,6 @@ pipette_1channel_50_location = 'left'
 
 metadata = {
     'protocolName': 'Pierce Gold BCA Assay',
-    'author': 'Bing',
     'description': 'Automated liquid handling for Pierce Gold BCA Protein Assay to determine protein concentrations'
 }
 
