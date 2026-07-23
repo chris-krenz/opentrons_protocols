@@ -4,15 +4,15 @@ The Opentrons Flex is run using the Opentrons App with protocols coded in Python
 
 For protocols that have parameters, account for making the Python script flexible for different inputs. 
 
-1. Read over the manual protocols.io (or an kit instruction if protocols.io doesn't exist) and understand the process.
+1. Read over the manual protocols.io (or a kit instruction if protocols.io doesn't exist) and understand the process.
    
-2. List the materials and hardware needed for the protocols, match and replace labware if needed. Write down API names for each materials and hardware.
-   - API names for labwares verified for Opentrons can be found in the 'Labwares' tab in the Opentrons app.
+2. List the materials and hardware needed for the protocols, match and replace labware if needed. Write down API names for each material and hardware.
+   - API names for labware verified for Opentrons can be found in the 'Labwares' tab in the Opentrons app.
    - If your labware is not found, please check Opentrons [custom labware creator](https://docs.opentrons.com/flex/labware/definitions/#custom-labware-creator).
    
 4. Before writing the protocol, begin by adding the imports, metadata, and requirements.
-      -  You can also use the opentrons official [Protocol Designer](https://designer.opentrons.com/?_gl=1*bagoc2*_ga*MTAyMjAwODcyMS4xNzc0MDM2NzU0*_ga_66HK7MC5D7*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMA..*_gcl_au*OTUzMDE4Nzc5LjE3ODE4MTgxMTA.*_ga_GNSMNLW4RY*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMTI2MTg1MjkzMA) to create a base script to then edit. 
-5. Begin formatting the script by adding protocol comments keep track of each steps (action, volume, location and destination)  
+      -  You can also use the Opentrons official [Protocol Designer](https://designer.opentrons.com/?_gl=1*bagoc2*_ga*MTAyMjAwODcyMS4xNzc0MDM2NzU0*_ga_66HK7MC5D7*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMA..*_gcl_au*OTUzMDE4Nzc5LjE3ODE4MTgxMTA.*_ga_GNSMNLW4RY*czE3ODQ3MzY0NTckbzUxJGcxJHQxNzg0NzM2NDY2JGo1MSRsMCRoMTI2MTg1MjkzMA) to create a base script to then edit. 
+5. Begin formatting the script by adding protocol comments to keep track of each step (action, volume, location and destination)  
    Example:
 ```ruby
 from opentrons import protocol_api
@@ -40,11 +40,11 @@ def run(protocol: protocol_api.ProtocolContext):
 ```
 5. Explore Opentrons Python API documentation for commands and parameters for each step of the protocol. 
 
-6. Edit the protocol based off dry runs, water runs, and runs with x% glycerol and food coloring if applicable.
+6. Edit the protocol based on dry runs, water runs, and runs with x% glycerol and food coloring if applicable.
    - Dry run: check for collisions, step order, flex gripper misalignment (if applicable).
-   - Water run: check for bubbles, apiration/dispense speed, accurate pipetting (liquid left in and/or on tip), reducing dead volume.
-     - Water have a much higher surface tension than most liquid, keep this in mind when testing to reduce dead volume. 
-   - Glycerol run: recheck everything in the water run when viscousity and surface tension changes.
+   - Water run: check for bubbles, aspiration/dispense speed, accurate pipetting (liquid left in and/or on tip), reducing dead volume.
+     - Water has a much higher surface tension than most liquids, keep this in mind when testing to reduce dead volume. 
+   - Glycerol run: recheck everything in the water run when viscosity and surface tension change.
 
 ## TroubleShooting Script:
 ### Inaccurate pipetting:
@@ -53,27 +53,27 @@ def run(protocol: protocol_api.ProtocolContext):
   - Consider changing pipette sizes when the aspiration volume is < 25uL (Ex. Aspirate 10 uL with 20 uL tips and 50 uL pipette).
 - Decreasing aspiration and dispensing flow rates.
   - Opentrons pipette flow rate is in uL/s.
-  - For liquid with viscousity similar to water, changing the flow rate to be about the same as the amount your aspirating/dispensing.
-  - For liquid with viscousity higher than 10% glycerol, always make the flow rate 50% the amount your aspirating/dispensing.
-    ```ruby
+  - For liquid with viscosity similar to water, change the flow rate to be about the same as the amount you're aspirating/dispensing.
+  - For liquid with viscosity higher than 10% glycerol, always make the flow rate 50% of the amount you're aspirating/dispensing.
+```ruby
     # If you are aspirating 60 uL of 10% glycerol
     pipette.flow_rate.aspirate = 50
     pipette.flow_rate.dispense = 20
-    ```
+```
 - Using liquid class for highly viscous or volatile liquid. 
 - Adding touch tip and/or blow out.
-  - Touch tip will tap the side of the well to git rid of droplets hanging on the tip.
-  - Blow out will blow air out of the tip to rid of extra droplets hanging inside of the tip (does not always dispell everything)
-    ```ruby
+  - Touch tip will tap the side of the well to get rid of droplets hanging on the tip.
+  - Blow out will blow air out of the tip to get rid of extra droplets hanging inside of the tip (does not always dispel everything)
+```ruby
     # Touching tip and blowing out
     pipette.touch_tip()
     pipette.blow_out()
-    ```
+```
 ### Uneven Mixing:
 - Mixing at different heights.
 - Distributing liquid across a reservoir.
-  - Check [Pierce Gold BCA Assay](https://github.com/bingling-w/opentrons_protocols/tree/1945bdec59cba9e938cb80d12edce98195e45748/protocols/OT-Flex/pierce_gold_bca_assay) for rest of protocol. 
-    ```ruby
+  - Check [Pierce Gold BCA Assay](https://github.com/bingling-w/opentrons_protocols/tree/1945bdec59cba9e938cb80d12edce98195e45748/protocols/OT-Flex/pierce_gold_bca_assay) for the rest of the protocol. 
+```ruby
     # Distributing reagent b across the reservoir. 
     for count in reagent_b_transfer:
           res = reservoir['A2'].bottom(5)
@@ -89,11 +89,11 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_multi.blow_out(reservoir['A2'].top())
     p1000_multi.mix(1, 200 * 0.5, reservoir['A2'].bottom(4))
     p1000_multi.blow_out(reservoir['A2'].top())
-    ```
+```
 ### Running out of deck space:
-- Stacking labwares using the Flex Gripper
-  - Labwares can be stack, though not part of the Opentrons Python API.
-    ```ruby
+- Stacking labware using the Flex Gripper
+  - Labware can be stacked, though this is not part of the Opentrons Python API.
+```ruby
     # There’s two wellplate stacked on top of each other at D1. Plate1 is stacked on top of plate2
     plate1 = protocol.load_labware('greiner_96_microplate_280ul', 'D1')
 
@@ -116,7 +116,7 @@ def run(protocol: protocol_api.ProtocolContext):
             use_gripper=True,  
             pick_up_offset={"x": 0, 'y': 0, 'z': -1.5},
     )
-    ```
+```
       
     In this code, the gripper moves plate1 off plate2, moving plate1 onto deck D2.  
     Then, plate2 is moved to be stacked on top of plate1 at deck D2. 
@@ -127,8 +127,8 @@ def run(protocol: protocol_api.ProtocolContext):
     The offset should be the height of the labware you are stacking, but the offset should be tested and adjusted to prevent liquid spill.  
     
 - Moving unused labware offdeck using the Flex Gripper
-  - Labwares can be moved offdeck, though not part of the Opentrons Python API.
-      ```ruby
+  - Labware can be moved offdeck, though this is not part of the Opentrons Python API.
+```ruby
       plate1 = protocol.load_labware('greiner_96_microplate_280ul', 'D1')
 
       protocol.move_labware(
@@ -140,9 +140,5 @@ def run(protocol: protocol_api.ProtocolContext):
       
       # plate1 deleted from deck space "D3" to allow the space to be continuously used. 
       del protocol.deck["D3"]
-      ```
-      Labware can only be move offdeck to location B3, C3, and D3, and there must not be a hardware module placed in that deck space. 
-    
-
-      
-
+```
+      Labware can only be moved offdeck to locations B3, C3, and D3, and there must not be a hardware module placed in that deck space.
