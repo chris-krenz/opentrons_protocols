@@ -88,5 +88,15 @@ Calculator for BCA assay is in protocols.io.
 
 
 ## Protocol Updates
-- Ver. 2: Added ability to pick up wellplate lid to place it on the wellplate. 
-- Ver. 1: Adapted from the Pierce Gold BCA assay protocol. 
+- Ver. 13: Increased the number of unknown samples allowed for 3 replicates, and added an extra rack of 200 uL tips for when the unknown number exceeds 16 and replicates equal 3, to prevent running out of tips. When reagent B volume exceeds 150 uL, switches to a 200 uL tip using the 8-channel pipette for quicker transfer (wastes 8 more tips, but is much more efficient when reagent B volume is high). 
+- Ver. 12: Includes flexible input for changing module locations and changing pipette locations (left or right mount) to further simplify the process, especially for new users. 
+- Ver. 11: Includes flexible input for v-bottom or diamond-bottom wells, accessible for users with different labware. 
+- Ver. 10: Changed flow rate to be even slower, and added correct dead volume for working reagent. Slower flow rate results in more accurate pipetting, and the correct dead volume reduces liquid waste.
+- Ver. 9: Code is made to blow out, touch tip, and blow out again to account for the viscosity of unknowns and standards, to prevent droplets. 
+- Ver. 8: Code is optimized to dispense and aspirate more slowly for more accurate pipetting. 
+- Ver. 7: Code is optimized to use small-volume pipette arms and tips to minimize the machine's % error.
+- Ver. 6: Code is optimized to use a partial nozzle setup for the 8-channel pipette when there is not a full column, to reduce reagent waste and tip waste.
+- Ver. 5: Code is made so the pipette goes to the very bottom of the reservoir to reduce dead volume. 
+- Ver. 4: Code is optimized to distribute reagent B uniformly across the reservoir, and mixed with reagent A at different heights for a more uniform mixture. 
+- Ver. 2: Code contains mixing and blow-out steps, though it does not mix as well because the tip can mix a maximum of 50 uL volumes. 
+- Ver. 1: Code is optimized for flexibility, allowing the user to change the protocol based on how many replicates and unknowns are necessary.
