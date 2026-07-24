@@ -68,7 +68,7 @@ Example Setup for 4 unknowns: <img width="399" height="316" alt="image" src="htt
 
 
 ### Procedure
-For automation prep and protocol procedures follow the instructions [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
+For automation prep and protocol procedures follow the instructions [here](link here)
 
 ## Labware Required
 This protocol requires the following custom labware:
