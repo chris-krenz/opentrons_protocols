@@ -49,7 +49,7 @@ Set up the Flex according to what the software shows.
 
 <details>
 <summary>Click here for further information about how to set-up for your first time</summary>
-  What the screen should look like when loaded. 
+  What the screen should look like when loaded. We are using the Promega Miniprep script as an setup example. 
   <img width="1531" height="299" alt="image" src="https://github.com/user-attachments/assets/5f80b3b5-0a5f-4a53-b624-a169e2c26481" />
   
   To see robot set-up on the software, press on your chosen protocol. 
