@@ -23,8 +23,9 @@ Each protocol folder under `protocols/OT-Flex/ColonyPlayground/` should include:
 - A `README.md`
   - Link to the `README.md` for the protocol in the `protocols/OT-Flex/` folder.
 - Input files (e.g., `.xlsx`), if needed
+
 **Robotics Colony Members:**
-Place shared/draft work in folders in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username, semester, and year (e.g., `jsmith_fall_2025`).
+Place shared/draft work in folders in `protocols/OT-Flex/ColonyPlayground/` and prefix folders with your BU username, semester, and year (e.g., `jsmith_fall_2025`).  
 Work chosen to be developed into a working/validated protocol should go in `protocols/OT-Flex/`.
 ## README.md Format and Guidelines
 Format:
