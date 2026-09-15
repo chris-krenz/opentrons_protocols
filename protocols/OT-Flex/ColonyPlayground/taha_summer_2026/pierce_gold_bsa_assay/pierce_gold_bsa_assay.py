@@ -299,3 +299,4 @@ def run(protocol: protocol_api.ProtocolContext):
     protocol.delay(minutes=4)
     heater_shaker.open_labware_latch()
     protocol.comment('BCA Protein Assay Complete')
+
