@@ -4,17 +4,32 @@ from opentrons.protocol_api import PARTIAL_COLUMN, ALL
 from opentrons.protocol_api import SINGLE, ALL
 
 # Edit the numbers here to suit your needs
-standards_number = 8
-unknown_number = 4
 # Note this code can accept up to 24 unknowns and up to 2 replicates
 # or accpet up to 18 unknowns and 3 replicates
-replicates_number = 1  # Supports up to 3 replicates depending on number of unknowns
+standards_number = 8
+unknown_number = 4
+
+# Supports up to 3 replicates depending on number of unknowns
+replicates_number = 1 
+
 volume_reagent_per_sample = 200  # uL
 
+#v-well or diamond-well? Input 1 for v-well or 2 for diamond-well
+well_type = 1
+
+#Change module deck location base on your own setup
+temp_module_location = 'C3'
+heater_shaker_location = 'C1'
+
+#Change pipette location base on your own setup ('left' or 'right')
+pipette_8channel_1000_location = 'right'
+pipette_1channel_50_location = 'left'
+
 metadata = {
-    'protocolName': 'Pierce Gold BCA Assay',
-    'author': 'Bing',
-    'description': 'Automated liquid handling for Pierce Gold BCA Protein Assay to determine protein concentrations'
+    'protocolName': 'Pierce BCA Assay',
+    'author': 'Opentrons',
+    'description': 'Automated liquid handling for Pierce BCA Protein Assay to determine protein concentrations',
+    'source': 'Opentrons'
 }
 
 requirements = {
@@ -23,18 +38,31 @@ requirements = {
 }
 
 def run(protocol: protocol_api.ProtocolContext):
+    # well type
+    if well_type == 1:
+        well = 'nest_12_reservoir_15ml'
+    else: 
+        well = 'usascientific_12_reservoir_22mL'
+        
     # Load trash bin
     trash = protocol.load_trash_bin('A3')
 
     # Load modules
     thermocycler = protocol.load_module('thermocyclerModuleV2')
-    temp_module = protocol.load_module('temperature module gen2', 'C3')
-    heater_shaker = protocol.load_module('heaterShakerModuleV1', 'C1')
+    temp_module = protocol.load_module('temperature module gen2', temp_module_location)
+    heater_shaker = protocol.load_module('heaterShakerModuleV1', heater_shaker_location)
 
     # Load labware
     reservoir = protocol.load_labware('usascientific_12_reservoir_22mL', 'D1')
     standard_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D2')
     unknown_tube_rack = protocol.load_labware('opentrons_24_tuberack_eppendorf_1.5ml_safelock_snapcap', 'D3')
+
+    # load lid stack
+    lid = protocol.load_lid_stack(
+        load_name="opentrons_tough_universal_lid",
+        location="C2",
+        quantity=1
+    )
 
     # Load heater shaker adapter
     hs_adapter = heater_shaker.load_adapter("opentrons_universal_flat_adapter")
@@ -46,18 +74,19 @@ def run(protocol: protocol_api.ProtocolContext):
     )
 
     # Load tip racks for all operations
+    tipracksingle = protocol.load_labware('opentrons_flex_96_tiprack_200ul', 'A2')
     tiprack200 = protocol.load_labware('opentrons_flex_96_tiprack_200ul', 'B3')
     tiprack50 = protocol.load_labware('opentrons_flex_96_tiprack_50ul', 'B2')
 
     # Load pipettes
     p1000_single = protocol.load_instrument(
         'flex_1channel_50',
-        mount='left',
-        tip_racks=[tiprack50]
+        mount=pipette_1channel_50_location,
+        tip_racks=[tiprack50, tiprack200]
     )
     p1000_multi = protocol.load_instrument(
         'flex_8channel_1000',
-        mount='right',
+        mount=pipette_8channel_1000_location,
         tip_racks=[tiprack200]
     )
 
@@ -74,32 +103,45 @@ def run(protocol: protocol_api.ProtocolContext):
     )
     bsa_standard = protocol.define_liquid(
         name='BSA Standard',
-        description='BSA standard',
+        description='BSA protein standard',
         display_color='#FF0000'
     )
     bsa_unknown = protocol.define_liquid(
         name='BSA unknowns',
-        description='BSA unknowns',
+        description='BSA unknowns made in dilution',
         display_color='#FFFF00'
     )
 
     # Calculating total reagent needed
-    total_reagent = (round(((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample) * 1.05)) + (150 * (8 - (unknown_number % 8)))
-    protocol.comment(f'Total Reagent needed: {total_reagent}. Total Reagent B needed: {total_reagent / 50}')
+    if well_type == 1:
+        # Calculating total reagent needed for v-well reservoir
+        total_reagent = (round(((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample))) + 300
+
+        # Load liquids into labware
+        reservoir['A1'].load_liquid(liquid=reagent_a, volume=(total_reagent + 200))
+        standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) + 30)
+
+    else: 
+        total_reagent = (round(
+        ((standards_number + unknown_number) * replicates_number * volume_reagent_per_sample))) + (160 * (8 - (unknown_number % 8))) +200
+
+        # Load liquids into labware
+        reservoir['A1'].load_liquid(liquid=reagent_a, volume=(total_reagent + 400))
+        standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) + 30)
 
     # Load liquids into labware
     reservoir['A1'].load_liquid(liquid=reagent_a, volume=total_reagent)
-    standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent/50)*1.10)
+    standard_tube_rack['D6'].load_liquid(liquid=reagent_b, volume=(total_reagent / 50) * 1.10)
 
     # Establishing where the standards will go in the tube rack
     standard_sources = standard_tube_rack.wells()[:standards_number]
-    # Load BSA standards into labware
+    # Load BSA standards into the tube
     for tube in standard_sources:
         tube.load_liquid(liquid=bsa_standard, volume=200)
 
     # Establishing where the unknowns will go in the tube rack
     unknown_sources = unknown_tube_rack.wells()[:unknown_number]
-    # Load BSA unknowns into labware
+    # Load BSA unknowns into the tube
     for tube in unknown_sources:
         tube.load_liquid(liquid=bsa_unknown, volume=200)
 
@@ -119,23 +161,24 @@ def run(protocol: protocol_api.ProtocolContext):
     heater_shaker.close_labware_latch()
 
     # ===== STEP 1: Microplate Procedure - Transferring Standards =============================================
-    protocol.comment('Transferring BSA standards to well plate')
+    protocol.comment('Transferring 25 uL of BSA standards to well plate')
+
+    p1000_single.flow_rate.aspirate = 25
+    p1000_single.flow_rate.dispense = 20
 
     # Get the replicate destination columns (columns 2, 3, 4, etc.)
     for idx, source in enumerate(standard_sources):
         destinations = get_destination_wells(idx, start_column=0, columns_per_replicate=1)
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(2, 50, source)  # Mix at source before aspirating
-        p1000_single.blow_out(source.top())
-        p1000_single.aspirate(10 * replicates_number, source.bottom(1), flow_rate=20)  # Single source (will be stretched to match destinations)
-
-        for dest in destinations:  # Dispensing to list of destinations
-            p1000_single.dispense(10, dest)
-            p1000_single.blow_out(dest.top())
-            p1000_single.touch_tip()
-            p1000_single.blow_out(dest.top())
-
+        p1000_single.distribute(
+            25,
+            source.bottom(1),
+            destinations,
+            new_tip = 'never',
+            touch_tip = True,
+            disposal_volume = 0
+        )
         p1000_single.drop_tip()
 
     # ===== STEP 2: Microplate Procedure - Transferring Unknowns =============================================
@@ -143,28 +186,23 @@ def run(protocol: protocol_api.ProtocolContext):
     protocol.comment('Transferring unknown samples to well plate')
 
     for idx, source in enumerate(unknown_sources):
-        destinations = get_destination_wells(idx,
-                       start_column=replicates_number,
-                       columns_per_replicate=math.ceil(unknown_number / 8)
+        destinations = get_destination_wells(idx, start_column=replicates_number, columns_per_replicate=math.ceil(unknown_number / 8)
         )
 
         p1000_single.pick_up_tip(tiprack50)
-        p1000_single.mix(2, 50, source)  # Mix at source before aspirating
-        p1000_single.blow_out(source.top())
-        p1000_single.aspirate(10 * replicates_number, source.bottom(1), flow_rate = 20)  # Single source (will be stretched to match destinations)
-
-        for dest in destinations:  # Dispensing to list of destinations
-            p1000_single.dispense(10, dest)
-            p1000_single.blow_out(dest.top())
-            p1000_single.touch_tip()
-            p1000_single.blow_out(dest.top())
-
+        p1000_single.distribute(
+            25,
+            source.bottom(1),
+            destinations,
+            new_tip = 'never',
+            touch_tip = True,
+            disposal_volume = 0
+        )
         p1000_single.drop_tip()
 
     # ===== STEP 3: Prepare BCA Working Reagent =====
     reagent_a_volume = total_reagent  # µL
-    reagent_b_volume = total_reagent / 50 # µL
-    reagent_mix_volume_8channel = ((total_reagent * 0.75) / 8)
+    reagent_b_volume = total_reagent / 50  # µL
 
     protocol.comment('Preparing BCA working reagent in reservoir A2')
 
@@ -172,12 +210,17 @@ def run(protocol: protocol_api.ProtocolContext):
     p1000_multi.pick_up_tip()
     p1000_single.pick_up_tip()
 
+    p1000_multi.flow_rate.aspirate = 200
+    p1000_multi.flow_rate.dispense = 100
+
+    protocol.comment(f'Transferring {round(reagent_a_volume)} uL of Reagent A to reservoir A2.')
+
     p1000_multi.transfer(
         reagent_a_volume / 8,
-        reservoir['A1'].bottom(-0.35),
+        reservoir['A1'].bottom(-0.30),
         reservoir['A2'],
         new_tip='never',
-        rate = 0.5
+        touch_tip = True
     )
 
     # Transfer Reagent B to reservoir A2
@@ -192,7 +235,11 @@ def run(protocol: protocol_api.ProtocolContext):
     if remainder > 0:
         reagent_b_transfer.append(remainder)
 
-    # Reagent B is uniformly distributed in reservoir well A2
+    p1000_single.flow_rate.aspirate = 40
+    p1000_single.flow_rate.dispense = 30
+
+    protocol.comment(f'Transferring {round(reagent_b_volume)} uL of Reagent B to reservoir A2.')
+    # Reagent B is uniformly distributed across reservoir well A2
     for count in reagent_b_transfer:
         res = reservoir['A2'].bottom(5)
         res_position = [res.move(Point(y=10 * i)) for i in range(-3, 4)]
@@ -200,16 +247,24 @@ def run(protocol: protocol_api.ProtocolContext):
         for position in res_position:
             p1000_single.dispense((count / 7), position)
         p1000_single.blow_out(reservoir['A2'].top())
-    
+
+    # aspirate and dispense once slowly dispense all reagent B. 
+    p1000_single.mix(1, 50)
+
     # Mixing reagent A and B
-    p1000_multi.mix(1, 200, reservoir['A2'].bottom(2), rate = 0.6)
-    p1000_multi.mix(2, 200 * 0.7, reservoir['A2'].bottom(3), rate = 0.6)
+    p1000_multi.mix(1, 200, reservoir['A2'].bottom(1.5))
+    p1000_multi.mix(2, 200 * 0.7, reservoir['A2'].bottom(2.5))
     p1000_multi.blow_out(reservoir['A2'].top())
-    p1000_multi.mix(1, 200 * 0.5, reservoir['A2'].bottom(4), rate = 0.6)
+    p1000_multi.mix(1, 200 * 0.5, reservoir['A2'].bottom(4))
     p1000_multi.blow_out(reservoir['A2'].top())
+
+    p1000_single.drop_tip()
+    p1000_multi.drop_tip()
 
     # ===== STEP 4: Adding Working Reagent to Standards ============================================================
     protocol.comment('Adding working reagent to standards')
+
+    p1000_multi.pick_up_tip(tiprack200)
 
     p1000_multi.aspirate(200, reservoir['A2'], flow_rate=100)
     p1000_multi.dispense(200, hs_plate['A1'])
@@ -223,23 +278,17 @@ def run(protocol: protocol_api.ProtocolContext):
             dest_columns_WR,
             blow_out=True,
             blowout_location='destination well',
-            new_tip='always',
-            flow_rate=100
+            new_tip='always'
         )
 
-    p1000_single.drop_tip()
     p1000_multi.drop_tip()
 
     # ===== STEP 5: Adding Working Reagent to Unknowns =================================================================
 
     # Calculate columns needed for unknowns
     columns_per_replicate = math.ceil(unknown_number / 8)
-    total_unknown_columns = columns_per_replicate * replicates_number
 
-    # Calculate total wells that need working reagent
-    total_unknown_wells = unknown_number * replicates_number
-
-    # NOZZLE CONFIGURATION MAPPING
+    # ===== NOZZLE CONFIGURATION MAPPING =====
     nozzle_map = {
         1: 'H1', 2: 'G1', 3: 'F1', 4: 'E1',
         5: 'D1', 6: 'C1', 7: 'B1', 8: 'A1'
@@ -269,12 +318,11 @@ def run(protocol: protocol_api.ProtocolContext):
                 dest_col = replicate_start_col + col_offset
                 p1000_multi.transfer(
                     200,
-                    reservoir['A2'].bottom(0),
+                    reservoir['A2'].bottom(0.3),
                     hs_plate.columns()[dest_col][0],
                     blow_out=True,
                     blowout_location='destination well',
-                    new_tip='always',
-                    flow_rate=100
+                    new_tip='always'
                 )
 
         # Handle partial column
@@ -299,8 +347,7 @@ def run(protocol: protocol_api.ProtocolContext):
                 hs_plate[target_well],
                 blow_out=True,
                 blowout_location='destination well',
-                new_tip='always',
-                flow_rate=100
+                new_tip='always'
             )
 
         # Handle partial column if it is only 1 well for that column
@@ -312,21 +359,19 @@ def run(protocol: protocol_api.ProtocolContext):
 
             p1000_single.transfer(
                 200,
-                reservoir['A2'].bottom(-0.4),
+                reservoir['A2'].bottom(-0.35),
                 hs_plate[target_well],
                 blow_out=True,
                 blowout_location='destination well',
-                new_tip='always',
-                flow_rate=100
+                new_tip='always'
             )
-
 
     protocol.comment('Working reagent distribution complete')
 
     # ===== STEP 6: Shake ===============================================================================================
-    protocol.comment("Shaking at 825 rpm")
+    protocol.comment("Shaking at 900 rpm")
     heater_shaker.set_and_wait_for_shake_speed(825)  # Set rpm
-    protocol.delay(seconds=25)  # Shake for 25 seconds
+    protocol.delay(seconds=30)  # Shake for 20 seconds
 
     # Stop shaking
     heater_shaker.deactivate_shaker()
@@ -334,10 +379,16 @@ def run(protocol: protocol_api.ProtocolContext):
     # Open heater shaker latch
     heater_shaker.open_labware_latch()
 
-    delay_time = (260 - ((10 * replicates_number) + (10 * total_unknown_columns)))
-    protocol.comment(f'Incubating at room temperature for {delay_time}')
-    protocol.delay(seconds=delay_time)
+    protocol.move_lid(
+        source_location=lid,
+        new_location=hs_plate,
+        use_gripper=True
+    )
 
-    protocol.comment('BCA Protein Assay protocol complete, please send wellplate to platereader immediately to read at 480nm. You have 20 seconds')
+    heater_shaker.set_and_wait_for_temperature(celsius=37)
+    protocol.delay(minutes=30)
+
+    protocol.comment(
+        'BCA Protein Assay protocol complete, please send wellplate to platereader immediately to read at 480nm. You have 20 seconds')
 
 
