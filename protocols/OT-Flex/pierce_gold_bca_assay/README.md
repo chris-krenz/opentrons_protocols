@@ -4,48 +4,17 @@
 # Pierce Dilution-Free Rapid Gold BCA Protein Assay Kit (OT-Flex)
 
 ## Overview
-This protocol performs an automated Pierce Gold BCA assay kit run from a 96-well plate using the Opentrons Flex robot with a 1000 uL 8-channel and 50 uL 1-channel pipette. The protocol is flexible, allowing inputs for different numbers of BSA unknowns and different numbers of replicates. 
-This kit has a working range of BSA from 20 to 10,000 μg/mL.
-
-The code can accept up to 24 unknown samples and up to 3 replicates.
+This protocol performs automated protein quantification using the Pierce Gold BCA Assay Kit in a 96-well plate format. This protocol can process 96 samples per run using the Opentrons Flex liquid handler, equipped with a 1000 uL 8-channel and 50 uL 1-channel pipette. The protocol is flexible, allowing unique combinations of unknowns and replicates. The Assay Kit has a working range of 20 to 10,000 μg/mL.
 
 <details>
 <summary>Click here for Pierce Gold BCA Assay Kit Information</summary>
-  
-  The Pierce Gold BCA Assay kit itself is for quantification of proteins in an unknown sample. The kit provides 8 standards with known protein concentrations. 
-  
-  The unknowns and standards will then be mixed with a working reagent created by mixing reagent A and reagent B provided by the kit. 
-  
-  The mixture will be left to incubate for 5 minutes at room temperature, and afterwards read in a plate reader at a wavelength of 480 nm. 
-
-  The relationship between protein concentration and absorbance is nearly linear. 
+  - Reference the DAMP Lab protocols.io Workspace, and see the protocol entitiled "Automated (Opentrons Flex) Pierce™ Dilution-Free™ Rapid Gold BCA Protein Assay Kit". 
+  - Reference the ThermoFisher product [here](https://www.thermofisher.com/order/catalog/product/A55862?ef_id=Cj0KCQjwkYLPBhC3ARIsAIyHi3S2QQBcdnyjjJAmqoOAEseGD5ktgiSlgmm253NlINClxLJku0LY_pcaAqCMEALw_wcB:G:s&s_kwcid=AL!3652!3!772389377757!!!g!!!22974799911!183617388854&cid=bid_pca_wwa_r01_co_cp1359_pjt0000_bid00000_0se_gaw_dy_con_con&gad_source=1&gad_campaignid=22974799911&gbraid=0AAAAADxi_GTrlxOZN5nMBP6P5_vqFkAtX&gclid=Cj0KCQjwkYLPBhC3ARIsAIyHi3S2QQBcdnyjjJAmqoOAEseGD5ktgiSlgmm253NlINClxLJku0LY_pcaAqCMEALw_wcB)
   </details>
 
-
-## Protocol Hardwares
-> [!NOTE]
-> Standards and unknowns are transferred to 1.5 mL snapcap tubes to make automation smoother
-- Robot: Opentrons Flex
-- Hardware: Heater shaker with the universal flat plate
-- Pipette: Flex 8-Channel 1000 µL and 1-Channel 50 µL
-
-All labware and consumable materials are listed [here](https://www.protocols.io/private/3A61A2A67AEF11F19BE90A58A9FEAC02)
-
-<details>
-<summary>Click here for materials reference image</summary>
-
-  Heater-Shaker universal flat plate
-
-  <img width="386" height="217" alt="image" src="https://github.com/user-attachments/assets/6d3ab0c3-4660-4dc9-8cd2-24c47ffe4edb" />
-
-</details>
-
-## Automated Protocol Summary
-### Setup
-Before automation, download the pierce_gold_bca_assay.py file, edit the parameters to fit your needs, and import it into the Opentrons software.\
-Set up the Flex according to what the software shows. 
->[!IMPORTANT]
->The liquid volume displayed is the minimum; perfect liquid dispersion may not always be guaranteed, so it is suggested to add extra reagent to prevent bubbles every time.
+## First-Time Use Instructions
+1. Download the pierce_gold_bca_assay.py file and import it into the Opentrons software.
+2. Upload the file to the Opentrons Flex.
 
 <details>
 <summary>Click here for further information about how to set-up for your first time</summary>
@@ -64,16 +33,26 @@ Set up the Flex according to what the software shows.
   <img width="478" height="374" alt="image" src="https://github.com/user-attachments/assets/fe6c7f59-05e1-4fc0-b8c8-14c592bba52e" />
 </details>
 
+
+## Parameters
+>[!IMPORTANT]
+>The required liquid volumes displayed on the Flex are the minimum. Perfect liquid dispersion may not always be guaranteed, so it is suggested to follow the amount specified in the protocol on protocols.io.
+
+1. Sample Count: Enter the total number of samples to be run, excluding replicates and excluding unknowns. 
+2. Sample Replicates: Enter the number of replicates per sample. 
+
+
+## Deck Layout
 Example Setup for 4 unknowns: <img width="399" height="316" alt="image" src="https://github.com/user-attachments/assets/6aa10b0c-dbd5-4398-a208-318e86ddb5c3" />
 
 
-### Procedure
-For automation prep and protocol procedures follow the instructions [here](link here)
-
-## Labware Required
+### Labware Required
 This protocol requires the following custom labware:
 
 [custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
+
+## Procedure
+1. The x is mixed with y. 
 
 ## Protocol Validations
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
@@ -82,9 +61,6 @@ This protocol requires the following custom labware:
   - Add red coloring to reagent B, and use 10% glycerol as reagent A.
   - Do an automated and manual run of the protocol.
   - Compare the standard curves of the two; the slopes of both should be close when using the same standards.
-
-Calculator for BCA assay is in protocols.io.
-  </details>
 
 
 ## Protocol Updates
