@@ -51,10 +51,10 @@ This protocol requires the following custom labware:
 
 [custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
 
-## Procedure
+## Automated Procedure Walk-Through
 1. The x is mixed with y. 
 
-## Protocol Validations
+## Protocol Validation Runs
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
 - Food coloring validation:
   - Using 10% glycerol, do a serial dilution with red food coloring as standards.
