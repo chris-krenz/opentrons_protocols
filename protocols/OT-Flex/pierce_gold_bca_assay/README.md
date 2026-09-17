@@ -52,7 +52,18 @@ This protocol requires the following custom labware:
 [custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
 
 ## Automated Procedure Walk-Through
-1. The x is mixed with y. 
+1. The 50uL 1-channel pipette is used to pick up a 50uL tip.
+2. The 50uL pipette is used to aspirate 10 uL of standards in the first row first column of the standards tube rack.
+3. The 10 uL of standards is dispensed into the first row first column of the 96 well plate.
+4. If replicates > 1: The pipette will aspirate 10 uL x # of replicates and consolidate 10 uL into the first row first column, and then the columns next to it. 
+5. The used tip is discarded.
+6. Step 1-5 is repeated for the 8 standards in the tube rack.
+7. The 50uL 1-channel pipette is used to pick up a 50uL tip.
+8. The 50uL pipette is used to aspirate 10 uL of unknowns in the first row first column of the unknowns tube rack.
+9. The 10 uL of unknowns is dispensed into the first row of the column next to the standards.
+10. If replicates > 1: The pipette will aspirate 10 uL x # of replicates and consolidate 10 uL into the first row column next to the standards, and then the column next to where the final unique unknown would be placed.  
+11. The used tip is discarded.
+12. Step 7-11 is repeated for the number of unknowns in the tube rack. 
 
 ## Protocol Validation Runs
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
