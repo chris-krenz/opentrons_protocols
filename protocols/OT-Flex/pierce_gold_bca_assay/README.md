@@ -53,18 +53,19 @@ This protocol requires the following custom labware:
 [custom_labware/nunc_96_wellplate_optical_bottom_400ul.json](https://github.com/bingling-w/opentrons_protocols/blob/4070e261d453abb1e0a81ed08c07d66fa3a36a12/custom_labware/nunc_96_wellplate_optical_bottom_400ul.json)
 
 ## Automated Procedure Walk-Through
-1. The 50uL 1-channel pipette is used to pick up a 50uL tip.
-2. The 50uL pipette is used to aspirate 10 uL of standards in the first row first column of the standards tube rack.
-3. The 10 uL of standards is dispensed into the first row first column of the 96 well plate.
-4. If replicates > 1: The pipette will aspirate 10 uL x # of replicates and consolidate 10 uL into the first row first column, and then the columns next to it. 
-5. The used tip is discarded.
-6. Step 1-5 is repeated for the 8 standards in the tube rack.
-7. The 50uL 1-channel pipette is used to pick up a 50uL tip.
-8. The 50uL pipette is used to aspirate 10 uL of unknowns in the first row first column of the unknowns tube rack.
-9. The 10 uL of unknowns is dispensed into the first row of the column next to the standards.
-10. If replicates > 1: The pipette will aspirate 10 uL x # of replicates and consolidate 10 uL into the first row column next to the standards, and then the column next to where the final unique unknown would be placed.  
-11. The used tip is discarded.
-12. Step 7-11 is repeated for the number of unknowns in the tube rack. 
+1. The 50uL 1-channel pipette picks up a 50uL tip.   
+2. The 50uL pipette aspirates (10 uL * # of replicates) of standard solution 1, located in the first row of the first column of the standards tube rack.
+3. The 10 uL of standard 1 is dispensed into the first row of first column (A1) of the 96 well plate.
+     If the replicates parameter is greater than 1: The same pipette tip will dispense 10 uL into the first row of the first column (A1), and       continue to the columns next to it (A2, A3...).
+4. The used tip is discarded.
+5. Steps 2-4 are repeated for all 8 standards in the tube rack.
+6. The 50uL 1-channel pipette picks up a 50uL tip.
+7. The 50uL pipette aspirates (10 uL * # of replicates) of sample 1 in the first row of the first column of the samples tube rack.
+8. The 10 uL of sample 1 is dispensed into the first row of the column next to the standards.
+      (For example: If replicates = 2, standard solutions occupy columns 1 and 2. Sample 1 is dispensed into wells A3 and A4.)
+9. The used tip is discarded.
+10. Step 6-9 is repeated for the number of unknowns in the tube rack.
+11. (stuff about adding the working reagent...?)
 
 ## Protocol Validation Runs
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
