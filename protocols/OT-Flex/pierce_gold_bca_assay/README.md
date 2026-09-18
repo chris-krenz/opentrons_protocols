@@ -39,7 +39,8 @@ This protocol performs automated protein quantification using the Pierce Gold BC
 >The required liquid volumes displayed on the Flex are the minimum. Perfect liquid dispersion may not always be guaranteed, so it is suggested to follow the amount specified in the protocol on protocols.io.
 
 1. Sample Count: Enter the total number of samples to be run, excluding replicates and excluding unknowns. 
-2. Sample Replicates: Enter the number of replicates per sample. 
+2. Sample Replicates: Enter the number of replicates per sample.
+3. Well Type: Select appropriate type of resevoir.
 
 
 ## Deck Layout
