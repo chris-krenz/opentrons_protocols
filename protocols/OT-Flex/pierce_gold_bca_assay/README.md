@@ -56,28 +56,28 @@ This protocol requires the following custom labware:
 1. The 50 uL 1-channel pipette picks up a 50 uL tip.
 2. The 50 uL pipette aspirates 10 uL × (number of replicates) of standard solution 1, located in well A1 of the standards tube rack.
 3. 10 uL of standard 1 is dispensed into well A1 of the 96-well plate.
-     If the replicates parameter is greater than 1, the same pipette tip continues dispensing 10 uL into the adjacent wells in that row (A2, A3, etc.).
+     - If the replicates parameter is greater than 1, the same pipette tip continues dispensing 10 uL into the adjacent wells in that row (A2, A3, etc.).
 4. The used tip is discarded.
 5. Steps 2–4 are repeated for all 8 standards in the tube rack.
 6. The 50 uL 1-channel pipette picks up a 50 uL tip.
 7. The 50 uL pipette aspirates 10 uL × (number of replicates) of sample 1, located in well A1 of the samples tube rack.
 8. 10 uL of sample 1 is dispensed into the row of wells immediately following the standards' columns.
-     For example, if replicates = 2, the standards occupy columns 1 and 2, and sample 1 is dispensed into wells A3 and A4.
+     - For example, if replicates = 2, the standards occupy columns 1 and 2, and sample 1 is dispensed into wells A3 and A4.
 9. The used tip is discarded.
 10. Steps 6–9 are repeated for the number of unknowns in the tube rack.
 11. The 50 uL 1-channel pipette picks up a 50 uL tip.
-      If the protocol requires more than 200 uL of reagent B, this step is skipped.
+      - If the protocol requires more than 200 uL of reagent B, this step is skipped.
 12. The 1000 uL 8-channel pipette picks up eight 200 uL tips.
 13. The 8-channel pipette moves to well A1 of the reservoir, aspirates the necessary amount of reagent A, and dispenses it into well A2 of the same reservoir.
 14. The used tips are discarded.
 15. The 1-channel pipette moves to well A6 of the standards tube rack, where reagent B is held, aspirates the necessary amount of reagent B, and dispenses it into well A2 of the reservoir.
-      If the protocol requires more than 200 uL of reagent B, the 8-channel pipette instead picks up one 200 uL tip to aspirate and dispense reagent B.
+      - If the protocol requires more than 200 uL of reagent B, the 8-channel pipette instead picks up one 200 uL tip to aspirate and dispense reagent B.
 16. Reagent A and reagent B are mixed thoroughly by aspirating and dispensing the liquid at different heights.
 17. The used tips are discarded.
 18. The 8-channel pipette picks up a new set of tips to aspirate and dispense 200 uL of working reagent into the 96-well plate.
-19. Depending on how many columns have unknowns, the pipette picks up the necessary number of tips.
-20. After all standards and unknowns have received working reagent, the heater-shaker activates to shake the 96-well plate at 825 rpm for 25 seconds.
-21.  After 5 minutes have passed, the protocol is completed.
+      - Depending on how many columns have unknowns, the pipette picks up the necessary number of tips.
+19. After all standards and unknowns have received working reagent, the heater-shaker activates to shake the 96-well plate at 825 rpm for 25 seconds.
+20.  After 5 minutes have passed, the protocol is completed.
 
 ## Protocol Validation Runs
 - $R^2$ value close to 1, signaling strong correlation between absorbance and concentration values.
@@ -89,6 +89,7 @@ This protocol requires the following custom labware:
 
 
 ## Protocol Updates
+- Ver. 14: Code now contains parameters. 
 - Ver. 13: Increased the number of unknown samples allowed for 3 replicates, and added an extra rack of 200 uL tips for when the unknown number exceeds 16 and replicates equal 3, to prevent running out of tips. When reagent B volume exceeds 150 uL, switches to a 200 uL tip using the 8-channel pipette for quicker transfer (wastes 8 more tips, but is much more efficient when reagent B volume is high). 
 - Ver. 12: Includes flexible input for changing module locations and changing pipette locations (left or right mount) to further simplify the process, especially for new users. 
 - Ver. 11: Includes flexible input for v-bottom or diamond-bottom wells, accessible for users with different labware. 
