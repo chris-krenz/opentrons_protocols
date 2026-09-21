@@ -18,13 +18,13 @@ This protocol performs automated protein quantification using the Pierce Gold BC
 
 <details>
 <summary>Click here for further information about how to set-up for your first time</summary>
-  What the screen should look like when loaded. We are using the Promega Miniprep script as an setup example. 
+  This is what the screen should look like when loaded. Note that this uses the Promega Miniprep script as an setup example. 
   <img width="1531" height="299" alt="image" src="https://github.com/user-attachments/assets/5f80b3b5-0a5f-4a53-b624-a169e2c26481" />
   
   To see robot set-up on the software, press on your chosen protocol. 
   <img width="800" height="405" alt="image" src="https://github.com/user-attachments/assets/1ca5895e-dd85-4b84-956a-730e730ac0ec" />
   
-  Click on the 'Visualize' button
+  Click on the 'Visualize' button.
   In this window, you can view the specific labware name when hovering over it, along with the steps with well view, tip pickup usage, etc.
   >Make sure to see step 1 or 2 to make sure all liquid has been loaded before moving on to the next step.
   <img width="800" height="484" alt="image" src="https://github.com/user-attachments/assets/be943cf2-f015-4152-ac51-b64af2421700" />
