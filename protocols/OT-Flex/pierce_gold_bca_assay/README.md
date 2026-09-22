@@ -1,5 +1,6 @@
 > [!WARNING]
 > Not validated.
+> This protocol is a work in progress, and the results have not been validated. 
 
 # Pierce Dilution-Free Rapid Gold BCA Protein Assay Kit (OT-Flex)
 
